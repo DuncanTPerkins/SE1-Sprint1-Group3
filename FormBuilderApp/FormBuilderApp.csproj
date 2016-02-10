@@ -239,6 +239,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\AdminViews\" />
+    <Folder Include="Views\SuperAdminViews\" />
+    <Folder Include="Views\UserViews\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
