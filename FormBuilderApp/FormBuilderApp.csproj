@@ -173,14 +173,11 @@
     <Compile Include="DataContexts\FormBuilderDb.cs" />
     <Compile Include="DataContexts\FormBuilderMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDB.cs" />
-<<<<<<< HEAD
     <Compile Include="DataContexts\IdentityMigrations\201602142123515_InitialCreate.cs" />
     <Compile Include="DataContexts\IdentityMigrations\201602142123515_InitialCreate.Designer.cs">
       <DependentUpon>201602142123515_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\IdentityMigrations\Configuration.cs" />
-=======
->>>>>>> 95c67d352598bc7966de28bd2105b9f3e9ca4db1
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
