@@ -12,6 +12,6 @@ namespace FormBuilderApp.Models
         public string Address2 { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public string Checkbox { get; set; }
+        public string Sports { get; set; }
     }
 }
