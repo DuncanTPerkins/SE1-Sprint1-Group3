@@ -1,5 +1,5 @@
-﻿@{
-    ViewBag.Title = "Dummy Form";
+@{
+    ViewBag.Title = "User Form";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -52,7 +52,8 @@
         <div class="form-group">
             <label for="state" class="control-label col-md-2">State: </label>
             <div class="col-md-10">
-                <select class="form-control" id="state">
+                <select class="form-control" name="state">
+                    <option value="">State</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
                     <option value="AZ">Arizona</option>
@@ -118,19 +119,19 @@
             <div class="col-md-10">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" id="checkbox1" />Option 1 <br />
+                        <input type="checkbox" name="sports" value="swimming" />swimming <br />
                     </label>
                     <label>
-                        <input type="checkbox" id="checkbox2" />Option 2 <br />
+                        <input type="checkbox" name="sports" value="curling" />curling <br />
                     </label>
                     <label>
-                        <input type="checkbox" id="checkbox3" />Option 3 <br />
+                        <input type="checkbox" name="sports" value="bullriding" />bullriding <br />
                     </label>
                     <label>
-                        <input type="checkbox" id="checkbox4" />Option 4 <br />
+                        <input type="checkbox" name="sports" value="flying" />flying <br />
                     </label>
                     <label>
-                        <input type="checkbox" id="checkbox5" />Option 5 <br />
+                        <input type="checkbox" name="sports" value="fishing" />fishing <br />
                     </label>
                 </div>
             </div>
