@@ -251,6 +251,7 @@
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Roles.cshtml" />
     <Content Include="Views\User\Users.cshtml" />
+    <Content Include="Views\Home\CreateForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
