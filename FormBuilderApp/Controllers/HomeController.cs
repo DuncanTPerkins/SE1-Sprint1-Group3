@@ -46,5 +46,11 @@ namespace FormBuilderApp.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [Authorize(Roles = "Super Admin")]
+        public ActionResult CreateForm()
+        {
+            return View();
+        }
     }
 }
