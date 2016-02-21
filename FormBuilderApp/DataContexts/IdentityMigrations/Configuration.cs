@@ -52,34 +52,34 @@ namespace FormBuilderApp.DataContexts.IdentityMigrations
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
 
-            if (!context.Users.Any(u => u.UserName == "superadmin"))
+            if (!context.Users.Any(u => u.UserName == "superadmin@test.com"))
             {
                 var user = new ApplicationUser
                 {
                     Email = "superadmin@test.com",
-                    UserName = "superadmin"
+                    UserName = "superadmin@test.com"
                 };
                 userManager.Create(user, "Pass1!");
                 userManager.AddToRole(user.Id, "Super Admin");
             }
 
-            if (!context.Users.Any(u => u.UserName == "admin"))
+            if (!context.Users.Any(u => u.UserName == "admin@test.com"))
             {
                 var user = new ApplicationUser
                 {
                     Email = "admin@test.com",
-                    UserName = "admin"
+                    UserName = "admin@test.com"
                 };
                 userManager.Create(user, "Pass1!");
                 userManager.AddToRole(user.Id, "Admin");
             }
 
-            if (!context.Users.Any(u => u.UserName == "user"))
+            if (!context.Users.Any(u => u.UserName == "user@test.com"))
             {
                 var user = new ApplicationUser
                 {
                     Email = "user@test.com",
-                    UserName = "user"
+                    UserName = "user@test.com"
                 };
                 userManager.Create(user, "Pass1!");
                 userManager.AddToRole(user.Id, "User");

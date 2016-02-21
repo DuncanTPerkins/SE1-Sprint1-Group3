@@ -32,14 +32,14 @@ namespace FormBuilderApp.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles="user")]
+        [Authorize(Roles="User")]
         public ActionResult DummyForm()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "user")]
+        [Authorize(Roles = "User")]
         public ActionResult DummyForm(Form form1)
         {
             _db.Forms.Add(form1);
