@@ -13,7 +13,7 @@ namespace FormBuilderApp.Controllers
 {
     public class UserController : Controller
     {
-        private IdentityDB _identityDb = new IdentityDB();
+        private IdentityDb _identityDb = new IdentityDb();
 
         protected override void Dispose(bool disposing)
         {
