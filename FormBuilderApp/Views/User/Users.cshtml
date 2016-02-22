@@ -45,12 +45,11 @@
             @Html.DisplayNameFor(model => model.AccessFailedCount)
         </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.UserName)
+            Username
         </th>
-        <th>
+        @*<th>
             Number of Roles
-        </th>
-        <th></th>
+        </th>*@
     </tr>
 
 @foreach (var item in Model) {
@@ -90,7 +89,7 @@
         </td>
         <td>
             @*<a href="/user/viewroles">@item.Roles.Count()</a>*@
-            @item.Roles.Count()
+            @*@item.Roles.Count()*@
         </td>
         <td>
             @if (ViewContext.HttpContext.User.IsInRole("Super Admin"))
