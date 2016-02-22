@@ -9,7 +9,7 @@
 @if (ViewContext.HttpContext.User.IsInRole("Super Admin"))
 {
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Add User", "Create")
     </p>
 }
 <table class="table">
@@ -89,12 +89,16 @@
             @Html.DisplayFor(modelItem => item.UserName)
         </td>
         <td>
-            <a href="/user/viewroles">@item.Roles.Count()</a>
+            @*<a href="/user/viewroles">@item.Roles.Count()</a>*@
+            @item.Roles.Count()
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @if (ViewContext.HttpContext.User.IsInRole("Super Admin"))
+            {
+                @Html.ActionLink("Edit Role", "AssignRole", new { id = item.Id }) <text>|</text>
+            }
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) 
+            @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
         </td>
     </tr>
 }
@@ -102,7 +106,7 @@
 </table>
 @if(ViewContext.HttpContext.User.IsInRole("Super Admin"))
 {
-    <div>
+    @*<div>
         <a href="/user/assignrole">Assign Role</a>
-    </div>
+    </div>*@
 }

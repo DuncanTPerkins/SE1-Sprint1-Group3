@@ -1,9 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "Assign Roles";
+    ViewBag.Title = "Edit Role";
 }
 
-<h2>Assign Roles</h2>
+<h2>Edit Role</h2>
 
 @{ 
     var userNames = ViewBag.UserNames;
@@ -16,15 +16,17 @@
         <div class="form-group">
             <label for="UserName" class="control-label col-md-2">User email:</label>
             <div class="col-md-10">
-                <select id="Username" name="username" class="form-control">
-                    @foreach(var name in userNames)
-                    {
+                <input id="Username" name="username" class="form-control" readonly="readonly" value="@ViewBag.User.UserName">
+
+                    @*<select id="Username" name="username" class="form-control">
+                       foreach(var name in userNames)
+                {
+
                         <option>
-                            @name
+                            @ViewBag.User.UserName
                         </option>
-                    }
-                </select>
-            </div>
+                    </select>*@
+</div>
         </div>
 
         <div class="form-group">
@@ -33,7 +35,7 @@
                 <select id="Rolename" name="rolename" class="form-control">
                     @foreach (var name in roleNames)
                     {
-                        <option>
+                        <option @if (name == ViewBag.Role) { <text>selected </text>}>
                             @name
                         </option>
                     }
@@ -50,5 +52,8 @@
 </form>
 
 <div>
-    <a href="/user/users">Back to List</a>
+    @Html.ActionLink("Back to Details", "Details", new { id = ViewBag.User.Id }) | 
+    @Html.ActionLink("Back to Users List", "Users", new { id = ViewBag.User.Id })
+
+
 </div>

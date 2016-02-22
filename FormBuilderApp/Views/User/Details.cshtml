@@ -1,0 +1,43 @@
+﻿@model FormBuilderApp.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>User Details</h2>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.UserName)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            Email Address
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>Role</dt>
+
+        @foreach (var item in ViewBag.Roles)
+        {
+            <dd> @item</dd>
+        }
+    </dl>
+</div>
+<p>
+    @if (ViewContext.HttpContext.User.IsInRole("Super Admin"))
+            {
+        @Html.ActionLink("Edit Role", "AssignRole", new { id = Model.Id }) <text>|</text>
+    }
+    @Html.ActionLink("Back to List", "Users")
+</p>

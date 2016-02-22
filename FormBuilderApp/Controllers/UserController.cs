@@ -7,7 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 
 namespace FormBuilderApp.Controllers
 {
@@ -66,6 +68,7 @@ namespace FormBuilderApp.Controllers
 
         public ActionResult Roles()
         {
+            ViewBag.Roles = _identityDb.Roles;
             return View(_identityDb.Roles.ToList());
         }
 
@@ -76,8 +79,19 @@ namespace FormBuilderApp.Controllers
         }
 
         [Authorize(Roles = "Super Admin")]
-        public ActionResult AssignRole()
+        public async Task<ActionResult> AssignRole(string id = "default")
         {
+            if (id != "default")
+            {
+                var User = _identityDb.Users.Find(id);
+                ViewBag.User = User;
+                var userStore = new UserStore<ApplicationUser>(_identityDb);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+                var roleStore = new RoleStore<IdentityRole>(_identityDb);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+                ViewBag.Role = roleManager.FindById(User.Roles.FirstOrDefault().RoleId).Name;
+               // await ViewBag.Roles.Add(roleManager.FindById(User.Roles.FirstOrDefault().RoleId));
+            }
             ViewBag.UserNames = _identityDb.Users.Select(u => u.UserName);
             ViewBag.RoleNames = _identityDb.Roles.Select(r => r.Name);
             return View();
@@ -85,18 +99,26 @@ namespace FormBuilderApp.Controllers
 
         [Authorize(Roles = "Super Admin")]
         [HttpPost]
-        public ActionResult AssignRole(string username, string rolename)
+        public async Task<ActionResult> AssignRole(string username, string rolename)
+        {
+            UserStore<ApplicationUser> userStore = new UserStore<ApplicationUser>(_identityDb);
+            UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(userStore);
+            var user = userManager.Users.FirstOrDefault(u => u.UserName == username);
+             await Task.Run(() => userManager.RemoveFromRoles(user.Id, userManager.GetRoles(user.Id).ToArray()));
+            //var role = roles.FirstOrDefault(r => r == rolename);
+            //if(role == null)
+            userManager.AddToRole(user.Id, rolename);
+            return RedirectToAction("Users");
+        }
+
+        [Authorize(Roles = "Super Admin, Admin")]
+        public ActionResult Details(string id )
         {
             var userStore = new UserStore<ApplicationUser>(_identityDb);
             var userManager = new UserManager<ApplicationUser>(userStore);
-
-            var user = userManager.Users.FirstOrDefault(u => u.UserName == username);
-            var roles = userManager.GetRoles(user.Id);
-            var role = roles.FirstOrDefault(r => r == rolename);
-            if(role == null)
-                userManager.AddToRole(user.Id, rolename);
-
-            return RedirectToAction("Users");
+            ViewBag.Roles = userManager.GetRoles(id);
+            ApplicationUser user = _identityDb.Users.Find(id);
+            return View(user);
         }
 
 
