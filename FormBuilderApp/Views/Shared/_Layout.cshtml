@@ -34,10 +34,6 @@
                     {
                         <li>@Html.ActionLink("View Users", "Users", "User")</li>
                     }
-                    @if (ViewContext.HttpContext.User.IsInRole("Super Admin"))
-                    {
-                        <li>@Html.ActionLink("Manage Permissions", "AssignRole", "User")</li>
-                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

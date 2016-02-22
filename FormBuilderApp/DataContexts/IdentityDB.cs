@@ -18,5 +18,7 @@ namespace FormBuilderApp.DataContexts
         {
             return new IdentityDb();
         }
+
+        //public System.Data.Entity.DbSet<FormBuilderApp.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }
