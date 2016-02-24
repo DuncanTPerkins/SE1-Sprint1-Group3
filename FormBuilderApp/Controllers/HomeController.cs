@@ -17,6 +17,10 @@ namespace FormBuilderApp.Controllers
             return View();
         }
 
+        public ActionResult Forms()
+        {
+            return View(_db.Forms.ToList());
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

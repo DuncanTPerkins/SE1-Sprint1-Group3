@@ -1,5 +1,6 @@
 namespace FormBuilderApp.DataContexts.FormBuilderMigrations
 {
+    using Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -27,6 +28,13 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            context.Forms.AddOrUpdate(f => f.City, new Form
+            {
+                City = "Johnson City",
+                State = "Tennessee",
+                Name = "Bob"
+            });
         }
     }
 }
