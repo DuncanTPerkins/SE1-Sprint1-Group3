@@ -37,7 +37,7 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
             //    Name = "Bob"
             //});
 
-            context.Forms.AddOrUpdate(f => f.Name,
+            context.Forms.AddOrUpdate(f => f.Id,
 
         new Form
 
