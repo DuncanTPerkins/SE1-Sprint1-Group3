@@ -7,8 +7,8 @@ namespace FormBuilderApp.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Boolean IsCompleted { get; set; }
-        public Boolean IsAccepted { get; set; }
+        public enum FormStatus { Draft = 1, Completed, Accepted }
+        public FormStatus Status { get; set; }
 
         public ICollection<InputField> InputFields { get; set; } 
     }
