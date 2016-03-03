@@ -4,6 +4,7 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Collections.Generic;
     using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<FormBuilderApp.DataContexts.FormBuilderDb>
@@ -29,12 +30,33 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
             //    );
             //
 
-            context.Forms.AddOrUpdate(f => f.City, new Form
+            //context.Forms.AddOrUpdate(f => f.City, new Form
+            //{
+            //    City = "Johnson City",
+            //    State = "Tennessee",
+            //    Name = "Bob"
+            //});
+
+            context.Forms.AddOrUpdate(f => f.Id,
+
+        new Form
+
+        {
+
+            Name = "SurveyForm",
+
+            InputFields = new List<InputField>
+
             {
-                City = "Johnson City",
-                State = "Tennessee",
-                Name = "Bob"
-            });
+
+                new InputField { Data = @"<h2> test field </h2>" },
+                new InputField { Data = @" Insert Data <input type='text'></input>" }
+
+            }
+
+        }
+
+    );
         }
     }
 }

@@ -89,7 +89,7 @@ namespace FormBuilderApp.Controllers
                 var userManager = new UserManager<ApplicationUser>(userStore);
                 var roleStore = new RoleStore<IdentityRole>(_identityDb);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
-                 ViewBag.Role = roleManager.FindById(User.Roles.FirstOrDefault().RoleId).Name;
+                ViewBag.Role = roleManager.FindById(User.Roles.FirstOrDefault().RoleId).Name;
                 // await ViewBag.Roles.Add(roleManager.FindById(User.Roles.FirstOrDefault().RoleId));
                 ViewBag.UserNames = _identityDb.Users.Select(u => u.UserName);
                 ViewBag.RoleNames = _identityDb.Roles.Select(r => r.Name);

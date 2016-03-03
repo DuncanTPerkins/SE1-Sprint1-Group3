@@ -3,7 +3,7 @@
 }
 @if (ViewContext.HttpContext.User.IsInRole("User"))
 {
-    Response.Redirect("~/Home/DummyForm");
+    Response.Redirect("~/Home/Forms");
 }
 
 else if (ViewContext.HttpContext.User.IsInRole("Admin") ||  ViewContext.HttpContext.User.IsInRole("Super Admin"))
