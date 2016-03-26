@@ -16,6 +16,7 @@ namespace FormBuilderApp.Controllers
     public class UserController : Controller
     {
         private IdentityDb _identityDb = new IdentityDb();
+        private FormBuilderDb _db = new FormBuilderDb();
 
         protected override void Dispose(bool disposing)
         {
@@ -124,6 +125,20 @@ namespace FormBuilderApp.Controllers
             return View(user);
         }
 
+        [Authorize(Roles = "Super Admin, Admin")]
+        [HttpGet]
+        public ActionResult CreateForm()
+        {
+            return View();
+        }
 
+        [Authorize(Roles = "Super Admin, Admin")]
+        [HttpPost]
+        public ActionResult CreateForm(Form form)
+        {
+            _db.Forms.Add(form);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
