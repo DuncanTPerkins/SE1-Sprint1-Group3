@@ -52,7 +52,6 @@ namespace FormBuilderApp.Controllers
                         UserName = model.Email,
 
                     };
-
                     userManager.Create(user, model.Password);
                     userManager.AddToRole(user.Id, model.StartingRole);
                     return RedirectToAction("Users", "User");
