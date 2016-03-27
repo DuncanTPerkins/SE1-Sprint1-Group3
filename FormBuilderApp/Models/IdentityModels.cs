@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace FormBuilderApp.Models
 {
@@ -16,5 +17,8 @@ namespace FormBuilderApp.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        //Extended Properties
+        public List<int> UsedForms { get; set; }
     }
 }
