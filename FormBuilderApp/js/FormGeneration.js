@@ -130,8 +130,11 @@ function renderField(fieldData) {
 }
 
 function submit(e) {
-  var url = '/form/create'
-  $.post(url, formData, function (data) {
+    var url = '/form/create'
+    var postData = $('#preview').html().toString();
+    var token = $('[name=__RequestVerificationToken]').val();
+    alert(postData);
+    $.post(url, {__RequestVerificationToken: token, jsonData: postData }, function (data) {
     if (data.error) {
       alert('Error saving form. Try again later.');
     } else {

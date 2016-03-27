@@ -28,7 +28,7 @@
                     }
                     @if (ViewContext.HttpContext.User.IsInRole("Super Admin") || ViewContext.HttpContext.User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Create Form", "CreateForm", "Home")</li>
+                        <li>@Html.ActionLink("Create Form", "Create", "Form")</li>
                     }
                     @if (ViewContext.HttpContext.User.IsInRole("Super Admin") || ViewContext.HttpContext.User.IsInRole("Admin"))
                     {

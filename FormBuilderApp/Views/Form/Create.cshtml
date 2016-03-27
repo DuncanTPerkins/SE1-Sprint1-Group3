@@ -3,7 +3,7 @@
     ViewBag.Title = "Create";
 }
 
-
+@Html.AntiForgeryToken()
 
 <script type="text/template" id="formTmpl">
     <form name="<%= name %>">

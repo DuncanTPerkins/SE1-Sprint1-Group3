@@ -11,7 +11,6 @@ namespace FormBuilderApp.Models
         public string Name { get; set; }
         public enum FormStatus { Template = 1, Draft, Completed, Accepted }
         public FormStatus Status { get; set; }
-
-        public ICollection<InputField> InputFields { get; set; } 
+        public string FormData { get; set; }
     }
 }

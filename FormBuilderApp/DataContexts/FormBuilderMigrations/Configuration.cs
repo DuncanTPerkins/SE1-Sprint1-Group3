@@ -45,14 +45,7 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
 
             Name = "SurveyForm",
 
-            InputFields = new List<InputField>
-
-            {
-
-                new InputField { Data = @"<h2> test field </h2>" },
-                new InputField { Data = @" Insert Data <input type='text'></input>" }
-
-            }
+            FormData = "<h1> Hello </h1>"
 
         }
 
