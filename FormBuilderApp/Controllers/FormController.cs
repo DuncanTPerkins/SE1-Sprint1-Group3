@@ -24,6 +24,36 @@ namespace FormBuilderApp.Controllers
             return View();
         }
 
+       
+       
+        [Authorize(Roles = "Admin")]
+        public ActionResult Completed()
+        {
+            List<Form> completed = new List<Form>();
+            foreach (Form form in _db.Forms)
+            {
+                if ((int)form.Status == 1)
+                {
+                    completed.Add(form);
+                }
+            }
+            return View(completed);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Review(int id)
+        {
+            Form form = _db.Forms.Find(id);
+            ViewBag.FormHtml = form.FormData
+            ViewBag.Name = form.Name;
+            if (form == null)
+            {
+                return HttpNotFound();
+            }
+            return View();
+        }
+
+
         [Authorize(Roles="Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
