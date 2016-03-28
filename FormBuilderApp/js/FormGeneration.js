@@ -138,7 +138,6 @@ function submit(e) {
     var url = '/form/create'
     var postData = $('#preview').html().toString();
     var token = $('[name=__RequestVerificationToken]').val();
-    alert(postData);
     var values = [$('#formnameInput').val(), postData];
     $.post(url, {__RequestVerificationToken: token, jsonData: values }, function (data) {
     if (data.error) {
