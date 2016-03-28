@@ -2,6 +2,7 @@
 using FormBuilderApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,6 +22,26 @@ namespace FormBuilderApp.Controllers
         {
             return View(_db.Forms.ToList());
         }
+
+        [HttpGet]
+        public ActionResult Edit(int id = 0)
+        {
+            Form form = _db.Forms.Find(id);
+            if (form == null)
+            {
+                return HttpNotFound();
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Form form)
+        {
+            _db.Entry(form).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("Forms");
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -36,7 +57,7 @@ namespace FormBuilderApp.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles="User")]
+        [Authorize(Roles = "User")]
         public ActionResult DummyForm()
         {
             return View();

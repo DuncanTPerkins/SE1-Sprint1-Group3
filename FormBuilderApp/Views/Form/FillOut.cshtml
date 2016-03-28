@@ -1,0 +1,9 @@
+﻿@model IEnumerable<FormBuilderApp.Models.Form>
+
+@{
+    ViewBag.Title = "FillOut";
+}
+
+<h2>@ViewBag.Name.</h2>
+
+@Html.Raw(ViewBag.FormHtml)
