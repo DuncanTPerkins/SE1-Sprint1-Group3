@@ -24,12 +24,12 @@
 </script>
 
 <script type="text/template" id="optionFieldTmpl">
-    <div class="form-group">
-        <label>Option</label>
+    <div class="form-group field-option-container" data-field-id="<%= id %>">
+        <label>Option <%= parseInt(id, 10) + 1 %></label>
         <div class="input-group">
             <input type="text" class="form-control field-option">
             <span class="input-group-btn">
-                <button class="btn btn-danger delete-option" type="button">
+                <button class="btn btn-danger delete-option" type="button" id="delete-option" data-field-id="<%= id %>">
                     <span class="glyphicon glyphicon-remove-circle"></span>
                 </button>
             </span>
@@ -161,6 +161,7 @@
                     </form>
                 </div>
             </div>
+            <button id="later" class="btn btn-danger">Save Draft</button>
             <button id="create" class="btn btn-primary">Create Form</button>
         </div>
 
