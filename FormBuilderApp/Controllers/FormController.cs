@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FormBuilderApp.DataContexts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -8,6 +9,8 @@ namespace FormBuilderApp.Controllers
 {
     public class FormController : Controller
     {
+        private FormBuilderDb _db = new FormBuilderDb();
+
         // GET: Form
         public ActionResult Index()
         {
@@ -23,9 +26,16 @@ namespace FormBuilderApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Create(String jsonData)
+        public ActionResult Create(String[] jsonData)
         {
-            jsonData = Regex.Unescape(jsonData);
+            _db.Forms.Add(new Models.Form
+            {
+                Name = jsonData[0],
+                Status = Models.Form.FormStatus.Template,
+                FormData = jsonData[1]
+
+            });
+            _db.SaveChanges();
             return View();
         }
     }
