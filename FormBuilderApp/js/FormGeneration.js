@@ -86,15 +86,20 @@ $typeInput.on('change', function(e) {
 });
 
 function renderOptionsField() {
-  $('#field-options').html(optionsTmpl())
-    
-  var $addBtn = $('#add-option');
-  var $list = $('#option-list');
-  
-  // Add new option input when 'Add' button is clicked
-  $addBtn.on('click', function (e) {
-    $list.append(optionField())
-  })
+    $('#field-options').html(optionsTmpl())
+
+    var $addBtn = $('#add-option');
+    var $list = $('#option-list');
+
+    // Add new option input when 'Add' button is clicked
+    $addBtn.on('click', function (e) {
+        var id = $('.field-option').length;
+        $list.append(optionField({ id: id }))
+
+        $('.delete-option').on('click', function (e) {
+            $('.field-option-container[data-field-id=' + $(this).data('field-id') + ']').remove()
+        })
+    })
 }
 
 function renderFormPreview() {
