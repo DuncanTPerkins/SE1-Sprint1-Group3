@@ -263,6 +263,7 @@
     <Content Include="Views\User\CreateForm.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Form\Create.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
