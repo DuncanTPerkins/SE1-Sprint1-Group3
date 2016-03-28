@@ -44,14 +44,34 @@ namespace FormBuilderApp.Controllers
         public ActionResult Review(int id)
         {
             Form form = _db.Forms.Find(id);
-            ViewBag.FormHtml = form.FormData
+            ViewBag.FormHtml = form.FormData;
             ViewBag.Name = form.Name;
             if (form == null)
             {
                 return HttpNotFound();
             }
             return View();
+
+
         }
+        //***** NOT SURE WHAT STATUS INTS REPRESENT WHAT *******
+        /*
+        [Authorize(Roles = "Admin")]
+        public ActionResult Accept(int id)
+        {
+            Form form = _db.Forms.Find(id);
+            
+            Form.FormStatus = *INSERT ACCEPTED INT*
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Deny(int id)
+        {
+            Form.FormStatus = *INSERT DENIED INT*
+            return View();
+        }
+        */
 
 
         [Authorize(Roles="Admin")]

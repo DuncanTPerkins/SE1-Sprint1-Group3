@@ -9,7 +9,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-           
+            <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
             <th></th>
         </tr>
         @foreach (var item in Model)
@@ -20,8 +22,11 @@
                 </td>
                
                 <td>
-                    @Html.ActionLink("View", "Review", new { Controller = "Form", id = item.Id })
-                    
+                    @Html.ActionLink("View", "Review", new { Controller = "Form", id = item.Id }) |
+                    @Html.ActionLink("Accept", "Accept", new { Controller = "Form", id = item.Id }) |
+                    @Html.ActionLink("Deny", "Deny", new { Controller = "Form", id = item.Id })
+
+                        
                 </td>
             </tr>
         }
