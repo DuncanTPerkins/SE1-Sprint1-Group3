@@ -16,6 +16,5 @@ namespace FormBuilderApp.DataContexts
         }
 
         public DbSet<Form> Forms { get; set; }
-        public DbSet<InputField> InputFields { get; set; }
     }
 }
