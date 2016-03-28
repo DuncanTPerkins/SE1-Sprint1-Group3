@@ -31,7 +31,7 @@ namespace FormBuilderApp.Controllers
             {
                 return HttpNotFound();
             }
-            return View(form);
+            return View();
         }
 
         [HttpPost]

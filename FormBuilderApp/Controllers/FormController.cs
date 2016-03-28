@@ -1,4 +1,5 @@
 ﻿using FormBuilderApp.DataContexts;
+using FormBuilderApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +18,13 @@ namespace FormBuilderApp.Controllers
             return View();
         }
 
+        [Authorize(Roles ="Admin")]
         public ActionResult Create()
         {
             return View();
         }
 
-
+        [Authorize(Roles="Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
@@ -36,6 +38,20 @@ namespace FormBuilderApp.Controllers
 
             });
             _db.SaveChanges();
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles ="User")]
+        public ActionResult FillOut(int id = 0)
+        {
+            Form form = _db.Forms.Find(id);
+            ViewBag.FormHtml = form.FormData;
+            ViewBag.Name = form.Name;
+            if (form == null)
+            {
+                return HttpNotFound();
+            }
             return View();
         }
     }
