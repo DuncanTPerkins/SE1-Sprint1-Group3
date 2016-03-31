@@ -1,0 +1,34 @@
+﻿@model IEnumerable<FormBuilderApp.Models.Form>
+@{
+    ViewBag.Title = "Completed Forms";
+}
+<h2>Completed Forms</h2>
+<div style="width: 60%; margin: 0 auto;">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+               
+                <td>
+                    @Html.ActionLink("View", "Review", new { Controller = "Form", id = item.Id }) |
+                    @Html.ActionLink("Accept", "Accept", new { Controller = "Form", id = item.Id }) |
+                    @Html.ActionLink("Deny", "Deny", new { Controller = "Form", id = item.Id })
+
+                        
+                </td>
+            </tr>
+        }
+    </table>
+</div>
