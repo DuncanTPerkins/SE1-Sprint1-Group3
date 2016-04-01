@@ -85,8 +85,8 @@ namespace FormBuilderApp.Controllers
             {
                 Name = jsonData[0],
                 Status = Models.Form.FormStatus.Template,
-                FormData = jsonData[2]
-
+                FormData = jsonData[2],
+                //JsonRepresentation = jsonData[3];
             });
             _db.SaveChanges();
             return View();
