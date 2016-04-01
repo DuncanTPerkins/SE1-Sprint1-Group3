@@ -25,7 +25,6 @@ namespace FormBuilderApp.Controllers
         }
 
        
-       
         [Authorize(Roles = "Admin")]
         public ActionResult Completed()
         {
@@ -52,27 +51,8 @@ namespace FormBuilderApp.Controllers
             }
             return View();
 
-
         }
-        //***** NOT SURE WHAT STATUS INTS REPRESENT WHAT *******
-        /*
-        [Authorize(Roles = "Admin")]
-        public ActionResult Accept(int id)
-        {
-            Form form = _db.Forms.Find(id);
-            
-            Form.FormStatus = *INSERT ACCEPTED INT*
-            return View();
-        }
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult Deny(int id)
-        {
-            Form.FormStatus = *INSERT DENIED INT*
-            return View();
-        }
-        */
-
+     
 
         [Authorize(Roles="Admin")]
         [HttpPost]
