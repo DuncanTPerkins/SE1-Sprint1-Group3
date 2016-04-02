@@ -17,47 +17,73 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
 
         protected override void Seed(FormBuilderApp.DataContexts.FormBuilderDb context)
         {
-            //  This method will be called after migrating to the latest version.
+            /* context.Position.AddOrUpdate(p => p.Position,
+                 new Positions
+                 {
+                     Id = 1,
+                     Position = "CEO"
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
+                 },
+
+                 new Positions
+                 {
+                     Id = 1,
+                     Position = "Manager"
+
+                 },
+
+                 new Positions
+                 {
+                     Id = 1,
+                     Position = "Dean"
+
+                 },
+
+                 new Positions
+                 {
+                     Id = 1,
+                     Position = "Chairman"
+
+                 }
+             );
+
+             context.Forms.AddOrUpdate(f => f.Id,
+
+                 new Form
+                 {
+                     Name = "Student",
+                     ParentId = 1,
+                     FormData = "<h1>Status</h1>",
+                     Status = Form.FormStatus.Completed
+                 },
+
+
+
+                 new Form
+                 {
+                     Name = "Student",
+                     ParentId = 1,
+                     FormData = "<h1>Status Update</h1>",
+                     Status = Form.FormStatus.Completed
+
+                 }
+
+             ); */
+
+            context.Position.AddOrUpdate(
+                  p => p.Position,
+                  new Positions { Position = "CEO" }
             //      new Person { FullName = "Brice Lambson" },
             //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+                );
 
-            //context.Forms.AddOrUpdate(f => f.City, new Form
-            //{
-            //    City = "Johnson City",
-            //    State = "Tennessee",
-            //    Name = "Bob"
-            //});
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Workflows', RESEED, 10000)");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Positions', RESEED, 20000)");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Form', RESEED, 30000)");
 
-            context.Forms.AddOrUpdate(f => f.Id,
 
-                new Form
-                {
-                    Name = "Student",
-                    ParentId = 1,
-                    FormData = "<h1>Status</h1>",   
-                    Status = Form.FormStatus.Completed             
-                },
 
-                
 
-                new Form
-                {
-                    Name = "Student",
-                    ParentId = 1,
-                    FormData = "<h1>Status Update</h1>",
-                    Status = Form.FormStatus.Completed
-                    
-                }
-            );
         }
     }
 }

@@ -16,6 +16,6 @@ namespace FormBuilderApp.DataContexts
 
         public DbSet<Form> Forms { get; set; }
         public DbSet<Workflow> Flow { get; set; }
-        public DbSet<Positions> Posiition { get; set; }
+        public DbSet<Positions> Position { get; set; }
     }
 }
