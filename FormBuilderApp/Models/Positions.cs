@@ -5,9 +5,9 @@ using System.Web;
 
 namespace FormBuilderApp.Models
 {
-    public class InputField
+    public class Positions
     {
         public int Id { get; set; }
-        public string Data { get; set; }
+        public string Position { get; set; }
     }
 }

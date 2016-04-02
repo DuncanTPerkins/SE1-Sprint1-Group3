@@ -24,7 +24,7 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     @if (ViewContext.HttpContext.User.IsInRole("User"))
                     {
-                        <li>@Html.ActionLink("Forms", "DummyForm", "Home")</li>
+                        <li>@Html.ActionLink("View Forms", "Forms", "Home")</li>
                     }
                     @if (ViewContext.HttpContext.User.IsInRole("Super Admin") || ViewContext.HttpContext.User.IsInRole("Admin"))
                     {
