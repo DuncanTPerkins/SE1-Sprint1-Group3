@@ -135,18 +135,15 @@ function renderField(fieldData) {
   }
 }
 
-function submit(e) {
++function submit(e) {
     var url = '/form/create'
-    var postData = $('#preview').html().toString();
-    var token = $('[name=__RequestVerificationToken]').val();
-    var values = [$('#formnameInput').val(), $('FormID').val(), postData];
-    $.post(url, {__RequestVerificationToken: token, jsonData: values }, function (data) {
-    if (data.error) {
-      alert('Error saving form. Try again later.');
-    } else {
-      alert('Form saved successfully!');
-    }
-  })
-}
+    $.post(url, formData, function (data) {
+        if (data.error) {
+            alert('Error saving form. Try again later.');
+        } else {
+            alert('Form saved successfully!');
+        }
+    } 
+    };
 
 $createBtn.on('click', submit);
