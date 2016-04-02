@@ -12,7 +12,6 @@ namespace FormBuilderApp.DataContexts
         public FormBuilderDb()
             : base("name=DefaultConnection")
         {
-
         }
 
         public DbSet<Form> Forms { get; set; }

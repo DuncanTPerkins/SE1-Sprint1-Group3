@@ -39,17 +39,25 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
 
             context.Forms.AddOrUpdate(f => f.Id,
 
-        new Form
+                new Form
+                {
+                    Name = "Student",
+                    ParentId = 1,
+                    FormData = "<h1>Status</h1>",   
+                    Status = Form.FormStatus.Completed             
+                },
 
-        {
+                
 
-            Name = "SurveyForm",
-
-            FormData = "<h1> Hello </h1>"
-
-        }
-
-    );
+                new Form
+                {
+                    Name = "Student",
+                    ParentId = 1,
+                    FormData = "<h1>Status Update</h1>",
+                    Status = Form.FormStatus.Completed
+                    
+                }
+            );
         }
     }
 }
