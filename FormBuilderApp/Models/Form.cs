@@ -13,6 +13,6 @@ namespace FormBuilderApp.Models
         public enum FormStatus { Template = 1, Draft, Completed, Accepted }
         public FormStatus Status { get; set; }
         public string FormData { get; set; }
-        public JsonObject JsonRepresentation { get; set; }
+        public FormCollection FormObjectRepresentation { get; set; }
     }
 }
