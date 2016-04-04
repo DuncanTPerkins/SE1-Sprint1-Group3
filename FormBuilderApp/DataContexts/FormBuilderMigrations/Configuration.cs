@@ -83,29 +83,29 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
             //    Name = "Bob"
             //});
 
-            /*  context.Forms.AddOrUpdate(f => f.Id,
+              context.Forms.AddOrUpdate(f => f.Id,
 
-                  new Form
+                /*  new Form
                   {
                       Name = "Student",
                       ParentId = 40000,
                       FormData = "<h1>Status</h1>",   
                       Status = Form.FormStatus.Completed,
                       WorkflowId = 20000
-                  },
+                  }, */
 
 
 
                   new Form
                   {
-                      Name = "Student",
-                      ParentId = 40000,
+                      Name = "Survey",
+                      ParentId = 40001,
                       FormData = "<h1>Status Update</h1>",
                       Status = Form.FormStatus.Completed,
                       WorkflowId = 20000
-                  },
+                  }
 
-                  new Form
+                /*  new Form
                   {
                       Name = "Survey",
                       ParentId = 40001,
@@ -164,7 +164,7 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
                   }
 
 
-              ); */
+              ); 
 
             context.Flow.AddOrUpdate(f => f.FlowId,
                 new Workflow
@@ -236,8 +236,8 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
                 {
                     Id = 30004,
                     Position = "President"
-                }
-            );
+                } */
+            ); 
             context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Workflows', RESEED, 20000)");
             context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Positions', RESEED, 30000)");
             context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Forms', RESEED, 40000)");

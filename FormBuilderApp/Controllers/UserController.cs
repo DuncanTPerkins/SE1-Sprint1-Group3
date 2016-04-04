@@ -139,5 +139,20 @@ namespace FormBuilderApp.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        //Change user roles
+        [Authorize(Roles = "Super User")]
+        public ActionResult ViewFormsSuperUser()
+        {
+            var statusesToShow = Form.FormStatus.Template | Form.FormStatus.Draft | Form.FormStatus.Completed | Form.FormStatus.Accepted;
+            return View(_db.Forms.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Completed).ToList());
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult ViewFormsAdmin()
+        {
+            var statusesToShow = Form.FormStatus.Template | Form.FormStatus.Draft | Form.FormStatus.Completed | Form.FormStatus.Accepted;
+            return View(_db.Forms.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Completed).ToList());
+        }
     }
 }
