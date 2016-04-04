@@ -11,8 +11,9 @@ namespace FormBuilderApp.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string FormId { get; set; }
+        public int FlowId { get; set; }
 
+        public int FormId { get; set; }
         public ICollection<Positions> Positions { get; set; }
         public virtual Positions Input { get; set; }
     }

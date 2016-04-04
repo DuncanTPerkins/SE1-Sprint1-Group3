@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Web;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace FormBuilderApp.Models
 {
     public class Form
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public Guid? UserId { get; set; }
         public int? ParentId { get; set; }
@@ -12,7 +17,8 @@ namespace FormBuilderApp.Models
         public enum FormStatus { Template = 1, Draft = 2, Completed = 4, Accepted = 8 }
         public FormStatus Status { get; set; }
         public string FormData { get; set; }
-        public ICollection<Positions> Workflow { get; set; }
-        public virtual Positions flow { get; set; }
+
+        public int WorkflowId { get; set; }
+        public virtual Workflow flow { get; set; }
     }
 }

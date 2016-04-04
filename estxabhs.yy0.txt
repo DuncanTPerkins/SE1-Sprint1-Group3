@@ -1,0 +1,14 @@
+﻿David Added the Admin and the SuperUser 'view a list of forms' pages
+due to problems, we couldn't get a version pushed from his computer to work properly so we're doing it form mine
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch SUViewForms
+# Changes to be committed:
+#	modified:   FormBuilderApp/Controllers/UserController.cs
+#	modified:   FormBuilderApp/DataContexts/FormBuilderMigrations/Configuration.cs
+#	modified:   FormBuilderApp/FormBuilderApp.csproj
+#	new file:   FormBuilderApp/Views/User/ViewFormsAdmin.cshtml
+#	new file:   FormBuilderApp/Views/User/ViewFormsSuperUser.cshtml
+#
+
