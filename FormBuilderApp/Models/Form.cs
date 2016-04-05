@@ -14,7 +14,7 @@ namespace FormBuilderApp.Models
         public Guid? UserId { get; set; }
         public int? ParentId { get; set; }
         public string Name { get; set; }
-        public enum FormStatus { Template = 1, Draft = 2, Completed = 4, Accepted = 8 }
+        public enum FormStatus { Template = 1, Draft = 2, Completed = 4, Accepted = 8, Denied = 16 }
         public FormStatus Status { get; set; }
         public string FormData { get; set; }
 

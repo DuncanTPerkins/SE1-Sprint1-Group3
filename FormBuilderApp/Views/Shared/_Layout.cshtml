@@ -21,22 +21,21 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
                     @if (ViewContext.HttpContext.User.IsInRole("User"))
                     {
-                        <li>@Html.ActionLink("View Forms", "Forms", "Home")</li>
+                        <li>@Html.ActionLink("View Forms", "Forms", "User")</li>
                     }
                     @if (ViewContext.HttpContext.User.IsInRole("Super Admin") || ViewContext.HttpContext.User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Create Form", "Create", "Form")</li>
+                        <li>@Html.ActionLink("Create Form", "CreateForm", "Admin")</li>
+                        <li>@Html.ActionLink("Create Users", "CreateUser", "Admin")</li>
+                        <li>@Html.ActionLink("View Users", "Users", "Admin")</li>
+                        <li>@Html.ActionLink("View Forms", "ViewFormsAdmin", "Admin")</li>
                     }
-                    @if (ViewContext.HttpContext.User.IsInRole("Super Admin") || ViewContext.HttpContext.User.IsInRole("Admin"))
+                    @if (ViewContext.HttpContext.User.IsInRole("Super User"))
                     {
-                        <li>@Html.ActionLink("View Users", "Users", "User")</li>
-                    }
-                    @if (ViewContext.HttpContext.User.IsInRole("Super Admin") || ViewContext.HttpContext.User.IsInRole("Admin"))
-                    {
-                        <li>@Html.ActionLink("Submitted Forms", "Completed", "Form")</li>
+                        <li>@Html.ActionLink("View Forms", "ViewFormsSuperUser", "SuperUser")</li>
                     }
                 </ul> 
                 @Html.Partial("_LoginPartial")
