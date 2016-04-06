@@ -1,9 +1,16 @@
-﻿function submit(e) {
+﻿var $fieldForm = $('form[name=genform]');
+var $submitBtn = $('#completed');
+var $draftBtn = $('#later');
+var $formID = $('#FormID');
+$fieldForm.on('submit', function (event) {
+    event.preventDefault();
+});
+function submit(e) {
     var url = '/form/fillout'
-    var postData = $('#preview').html()
-    var postData = html2json(postData);
+    var json = JSON.stringify($fieldForm.serializeArray());
     var token = $('[name=__RequestVerificationToken]').val();
-    $.post(url, { __RequestVerificationToken: token, jsonData: postData }, function (data) {
+    var values = [$formID.val(), json];
+    $.post(url, { __RequestVerificationToken: token, jsonData: values }, function (data) {
         if (data.error) {
             alert('Error saving form. Try again later.');
         } else {
@@ -12,4 +19,4 @@
     })
 }
 
-$createBtn.on('click', submit);
+$submitBtn.on('click', submit);

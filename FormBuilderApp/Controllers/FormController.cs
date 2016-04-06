@@ -7,12 +7,17 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.Security.Principal;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+
 namespace FormBuilderApp.Controllers
 {
     public class FormController : Controller
     {
         private FormBuilderDb _db = new FormBuilderDb();
-
+        private IdentityDb _IdentityDb = new IdentityDb();
         // GET: Form
         public ActionResult Index()
         {
@@ -108,15 +113,18 @@ namespace FormBuilderApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult FillOut(String[] jsonData, string submit)
+        public ActionResult FillOut(String[] jsonData)
         {
-            Form ParentForm = _db.Forms.Find(jsonData[1]);
+            var userStore = new UserStore<ApplicationUser>(_IdentityDb);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+            Form ParentForm = _db.Forms.Find((Int32.Parse(jsonData[0])));
             Form ChildForm = new Form();
             ChildForm.ParentId = ParentForm.Id;
-            ChildForm.FormData = jsonData[2];
+            ChildForm.FormObjectRepresentation = JsonConvert.DeserializeObject<List<string>>(jsonData[1]);
             ChildForm.Status = Form.FormStatus.Completed;
             ChildForm.Name = ParentForm.Name;
             ChildForm.UserId = User.Identity.GetUserId();
+            ParentForm.Users.Add(User.Identity.GetUserId());
             _db.Forms.Add(ChildForm);
             _db.SaveChanges();
             return View();
