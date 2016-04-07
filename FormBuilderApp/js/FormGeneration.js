@@ -49,7 +49,7 @@ $fieldForm.on('submit', function(event) {
   
   formData.fields.push(fieldData);
   
-  console.log(fieldData);
+  console.log(formData);
   
   
   resetFieldBuilder();
@@ -109,6 +109,7 @@ function renderFormPreview() {
     $formFields.append(renderField(field));
   })
   $preview.html($formContent);
+  console.log(formData);
 }
 
 function renderField(fieldData) {
@@ -137,8 +138,9 @@ function renderField(fieldData) {
 function submit(e) {
     var url = '/form/create'
     var postData = $('#preview').html().toString();
+    var json = JSON.stringify($("#myForm").serializeArray());
     var token = $('[name=__RequestVerificationToken]').val();
-    var values = [$('#formnameInput').val(), postData];
+    var values = [$('#formnameInput').val(), $('FormID').val(), postData, json];
     $.post(url, {__RequestVerificationToken: token, jsonData: values }, function (data) {
     if (data.error) {
       alert('Error saving form. Try again later.');

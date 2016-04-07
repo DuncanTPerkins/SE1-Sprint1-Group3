@@ -93,6 +93,7 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
                  }
              );
 
+<<<<<<< HEAD
              
               context.Forms.AddOrUpdate(f => f.Id,
 
@@ -104,6 +105,93 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
                     Status = Form.FormStatus.Completed,
                     flowId = 2
                 },
+=======
+             ); */
+
+
+            //      new Person { FullName = "Brice Lambson" },
+            //      new Person { FullName = "Rowan Miller" }
+            //    );
+            //
+
+            //context.Forms.AddOrUpdate(f => f.City, new Form
+            //{
+            //    City = "Johnson City",
+            //    State = "Tennessee",
+            //    Name = "Bob"
+            //});
+            /*
+              context.Forms.AddOrUpdate(f => f.Id,
+
+                /*  new Form
+                  {
+                      Name = "Student",
+                      ParentId = 40000,
+                      FormData = "<h1>Status</h1>",   
+                      Status = Form.FormStatus.Completed,
+                      WorkflowId = 20000
+                  }, 
+
+
+
+            new Form
+            {
+                Name = "Survey",
+                ParentId = 40001,
+                FormData = "<h1>Status Update</h1>",
+                Status = Form.FormStatus.Completed,
+                WorkflowId = 20000
+            }
+
+                /*  new Form
+                  {
+                      Name = "Survey",
+                      ParentId = 40001,
+                      FormData = "<h1>Status</h1>",
+                      Status = Form.FormStatus.Draft,
+                      WorkflowId = 20001
+                  },
+
+
+
+                  new Form
+                  {
+                      Name = "Survey",
+                      ParentId = 40001,
+                      FormData = "<h1>Status Update</h1>",
+                      Status = Form.FormStatus.Draft,
+                      WorkflowId = 20001
+                  },
+
+                  new Form
+                  {
+                      Name = "Student",
+                      ParentId = 40000,
+                      FormData = "<h1>Student</h1>",
+                      Status = Form.FormStatus.Template,
+                      WorkflowId = 20000
+                  },
+
+
+
+                  new Form
+                  {
+                      Name = "Survey",
+                      ParentId = 40001,
+                      FormData = "<h1>Survey</h1>",
+                      Status = Form.FormStatus.Template,
+                      WorkflowId = 20001
+                  },
+
+                  new Form
+                  {
+                      Name = "Student",
+                      ParentId = 40000,
+                      FormData = "<h1>Status</h1>",
+                      Status = Form.FormStatus.Accepted,
+                  },
+
+>>>>>>> 0f4982b57b7253696dc3e1732ffccb28e127927a
 
 
 
@@ -187,6 +275,7 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
               },
 
 
+<<<<<<< HEAD
               new Form
                  {
                      Name = "Survey",
@@ -197,6 +286,17 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
                  }
           ); 
 
+=======
+                new Positions
+                {
+                    Id = 30004,
+                    Position = "President"
+                } 
+            ); */
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Workflows', RESEED, 20000)");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Positions', RESEED, 30000)");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Forms', RESEED, 40000)");
+>>>>>>> 0f4982b57b7253696dc3e1732ffccb28e127927a
         }
     }
 }

@@ -3,7 +3,16 @@
 @{
     ViewBag.Title = "FillOut";
 }
+@section JavaScript 
+{
+<script src="~/js/UserSubmit.js"></script>id
+}
 
 <h2>@ViewBag.Name.</h2>
+<<<<<<< HEAD:FormBuilderApp/Views/User/FillOut.cshtml
 
 @Html.Raw(ViewBag.FormHtml) 
+=======
+<input type="hidden" id="FormID" name="FormID" value="@ViewBag.Id" />
+@Html.Raw(ViewBag.FormHtml)
+>>>>>>> 0f4982b57b7253696dc3e1732ffccb28e127927a:FormBuilderApp/Views/Form/FillOut.cshtml

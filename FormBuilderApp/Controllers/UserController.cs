@@ -31,10 +31,29 @@ namespace FormBuilderApp.Controllers
             Form form = _db.Forms.Find(id);
             ViewBag.FormHtml = form.FormData;
             ViewBag.Name = form.Name;
+            ViewBag.Id = form.Id;
             if (form == null)
             {
                 return HttpNotFound();
             }
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult FillOut(String[] jsonData)
+        {
+            var userStore = new UserStore<ApplicationUser>(_identityDb);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+            Form ParentForm = _db.Forms.Find((Int32.Parse(jsonData[0])));
+            Form ChildForm = new Form();
+            ChildForm.ParentId = ParentForm.Id;
+            ChildForm.FormObjectRepresentation = jsonData[1];
+            ChildForm.Status = Form.FormStatus.Completed;
+            ChildForm.Name = ParentForm.Name;
+            ChildForm.UserId = User.Identity.GetUserId();
+            _db.Forms.Add(ChildForm);
+            _db.SaveChanges();
             return View();
         }
 

@@ -6,7 +6,6 @@
     <title>@ViewBag.Title - Form Builder</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @RenderSection("JavaScript", required: false)
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -52,8 +51,9 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js")
-    @Scripts.Render("~/js/FormGeneration.js")
+    @RenderSection("JavaScript", required: false)
+    <script src="~/js/htmlparser.js"></script>
+    <script src="~/js/html2json.js"></script>
     @RenderSection("scripts", required: false)
 
 </body>
