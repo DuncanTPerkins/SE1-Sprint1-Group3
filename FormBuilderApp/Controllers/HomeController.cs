@@ -20,7 +20,7 @@ namespace FormBuilderApp.Controllers
 
         public ActionResult Forms()
         {
-            return View(_db.Forms.ToList());
+            return View(_db.Forms.Where(f => f.Status == Models.Form.FormStatus.Template).ToList());
         }
 
         [HttpGet]
