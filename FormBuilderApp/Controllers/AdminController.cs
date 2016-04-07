@@ -168,22 +168,6 @@ namespace FormBuilderApp.Controllers
             return View(user);
         }
 
-        [Authorize(Roles = "Super Admin, Admin")]
-        [HttpGet]
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        [Authorize(Roles = "Super Admin, Admin")]
-        [HttpPost]
-        public ActionResult Create(Form form)
-        {
-            _db.Forms.Add(form);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
         [Authorize(Roles = "Admin, Super Admin")]
         public ActionResult ViewFormsAdmin()
         {

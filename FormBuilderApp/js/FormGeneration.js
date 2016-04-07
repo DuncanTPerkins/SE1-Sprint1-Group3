@@ -136,7 +136,7 @@ function renderField(fieldData) {
 }
 
 function submit(e) {
-    var url = '/form/create'
+    var url = '/admin/createform'
     var postData = $('#preview').html().toString();
     var json = JSON.stringify($("#myForm").serializeArray());
     var token = $('[name=__RequestVerificationToken]').val();
