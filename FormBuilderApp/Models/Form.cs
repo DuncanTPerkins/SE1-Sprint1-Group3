@@ -19,6 +19,6 @@ namespace FormBuilderApp.Models
         public FormStatus Status { get; set; }
         public string FormData { get; set; }
         public List<String> Users { get; set; }
-        public List<String> FormObjectRepresentation { get; set; }
+        public List<Dictionary<string, string>> FormObjectRepresentation { get; set; }
     }
 }

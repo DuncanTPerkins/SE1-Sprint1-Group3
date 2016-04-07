@@ -120,11 +120,11 @@ namespace FormBuilderApp.Controllers
             Form ParentForm = _db.Forms.Find((Int32.Parse(jsonData[0])));
             Form ChildForm = new Form();
             ChildForm.ParentId = ParentForm.Id;
-            ChildForm.FormObjectRepresentation = JsonConvert.DeserializeObject<List<string>>(jsonData[1]);
+            ChildForm.FormObjectRepresentation = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(jsonData[1]);
             ChildForm.Status = Form.FormStatus.Completed;
             ChildForm.Name = ParentForm.Name;
             ChildForm.UserId = User.Identity.GetUserId();
-            ParentForm.Users.Add(User.Identity.GetUserId());
+            ParentForm.Users.Add(ChildForm.UserId);
             _db.Forms.Add(ChildForm);
             _db.SaveChanges();
             return View();
