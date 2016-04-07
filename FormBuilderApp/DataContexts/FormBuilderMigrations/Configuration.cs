@@ -17,38 +17,77 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
 
         protected override void Seed(FormBuilderApp.DataContexts.FormBuilderDb context)
         {
-             context.Position.AddOrUpdate(p => p.Position,
-                 new Positions
-                 {
-                     Id = 30000,
+            context.Flow.AddOrUpdate(f => f.FormId,
+
+                new Workflow
+                {
+                    FlowId = 1,
+                    FormId = 4,
+                    Positions = new List<Positions>
+                        {
+                            new Positions
+                            {
+                                Id = 1,
+                            },
+
+                            new Positions
+                            {
+                                Id = 2,
+                            }
+                        }
+                },
+
+                new Workflow
+                {
+                    FlowId = 2,
+                    FormId = 1,
+                    Positions = new List<Positions>
+                        {
+                           new Positions
+                           {
+                               Id = 2,
+                           },
+
+                           new Positions
+                           {
+                              Id = 3,
+                           }
+                       }
+                }
+           );
+            context.Position.AddOrUpdate(f => f.Id,
+
+                new Positions
+                {
+                    Id = 1,
                      Position = "President"
 
                  },
 
                  new Positions
                  {
-                     Id = 30001,
+                     Id = 2,
                      Position = "Manager"
 
                  },
 
                  new Positions
                  {
-                     Id = 30002,
+                     Id=3,
                      Position = "Dean"
 
                  },
 
                  new Positions
                  {
-                     Id = 30003,
+                     Id=4,
                      Position = "Chairman"
 
                  },
 
                  new Positions
                  {
-                     Id = 30004,
+                     Id=5,
                      Position = "Director"
 
                  }
@@ -60,9 +99,10 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
                 new Form
                 {
                     Name = "Student",
-                    ParentId = 40000,
+                    ParentId = 1,
                     FormData = "<h1>Student Page</h1><br />random stuff",
-                    Status = Form.FormStatus.Completed
+                    Status = Form.FormStatus.Completed,
+                    flowId = 2
                 },
 
 
@@ -70,7 +110,7 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
                  new Form
                  {
                      Name = "Survey",
-                     ParentId = 40001,
+                     ParentId = 2,
                      FormData = "<h1>Survey Page</h1><br />random stuff",
                      Status = Form.FormStatus.Completed
 
@@ -79,7 +119,7 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
                 new Form
                 {
                     Name = "Clubs",
-                    ParentId = 40002,
+                    ParentId = 3,
                     FormData = "<h1>Club Page</h1><br />random stuff",
                     Status = Form.FormStatus.Draft
                 },
@@ -89,56 +129,59 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
                  new Form
                  {
                      Name = "Hobbies",
-                     ParentId = 40003,
+                     ParentId = 4,
                      FormData = "<h1>Hobby Page</h1><br />random stuff",
-                     Status = Form.FormStatus.Draft
+                     Status = Form.FormStatus.Draft,
+                     flowId = 2
 
                  },
 
               new Form
               {
+                  Id = 1,
                   Name = "Student",
                   ParentId = null,
                   FormData = "<h1>Student Page</h1><br />random stuff",
                   Status = Form.FormStatus.Template,
-                  WorkflowId = 20000
+                  flowId = 1
               },
 
 
 
               new Form
               {
+                  Id=2,
                   Name = "Survey",
                   ParentId = null,
                   FormData = "<h1>Survey Page</h1><br />random stuff",
                   Status = Form.FormStatus.Template,
-                  WorkflowId = 20001
               },
 
 
               new Form
               {
+                  Id=3,
                   Name = "Clubs",
                   ParentId = null,
                   FormData = "<h1>Club Page</h1><br />random stuff",
                   Status = Form.FormStatus.Template,
-                  WorkflowId = 20002
               },
 
 
               new Form
               {
-                  Name = "Hobbies",
-                  ParentId = null,
-                  FormData = "<h1>Hobby Page</h1><br />random stuff",
-                  Status = Form.FormStatus.Template,
-                  WorkflowId = 20003
-              },
+                      Id=4,
+                      Name = "Hobbies",
+                      ParentId = null,
+                      FormData = "<h1>Hobby Page</h1><br />random stuff",
+                      Status = Form.FormStatus.Template,
+                      flowId = 2
+               },
 
               new Form
               {
                   Name = "Student",
-                  ParentId = 40000,
+                  ParentId = 1,
                   FormData = "<h1>Student Page</h1><br />random stuff",
                   Status = Form.FormStatus.Completed
               },
@@ -147,51 +190,13 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
               new Form
                  {
                      Name = "Survey",
-                     ParentId = 40001,
+                     ParentId = 2,
                      FormData = "<h1>Survey Page</h1><br />random stuff",
                      Status = Form.FormStatus.Completed
 
                  }
           ); 
 
-        context.Flow.AddOrUpdate(f => f.FlowId,
-            new Workflow
-            {
-                FlowId = 20000,
-                Positions = new List<Positions>
-                {
-                    new Positions
-                    {
-                        Id = 300000,
-                    },
-
-                    new Positions
-                    {
-                        Id = 300001,
-                    }
-                }
-            },
-
-            new Workflow
-            {
-                FlowId = 20001,
-                Positions = new List<Positions>
-                {
-                    new Positions
-                    {
-                        Id = 300001,
-                    },
-
-                    new Positions
-                    {
-                        Id = 300002,
-                    }
-                }
-            }
-        );
-            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Workflows', RESEED, 20000)");
-            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Positions', RESEED, 30000)");
-            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Forms', RESEED, 40000)");
         }
     }
 }

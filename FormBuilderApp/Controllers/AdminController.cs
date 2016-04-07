@@ -100,6 +100,7 @@ namespace FormBuilderApp.Controllers
                 Name = jsonData[0],
                 Status = Models.Form.FormStatus.Template,
                 FormData = jsonData[1]
+                
 
             });
             _db.SaveChanges();

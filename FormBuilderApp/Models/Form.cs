@@ -18,7 +18,7 @@ namespace FormBuilderApp.Models
         public FormStatus Status { get; set; }
         public string FormData { get; set; }
 
-        public int WorkflowId { get; set; }
+        public int? flowId { get; set; }
         public virtual Workflow flow { get; set; }
     }
 }

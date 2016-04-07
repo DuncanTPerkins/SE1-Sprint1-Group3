@@ -19,9 +19,6 @@ namespace FormBuilderApp
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Database.SetInitializer<FormBuilderDb>(null);
-
-
-
         }
     }
 }
