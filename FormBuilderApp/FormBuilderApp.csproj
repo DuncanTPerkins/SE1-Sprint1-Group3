@@ -270,7 +270,7 @@
     <Content Include="Views\Admin\Users.cshtml" />
     <Content Include="Views\Admin\Details.cshtml" />
     <Content Include="Views\User\Forms.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\CreateForm.cshtml" />
     <Content Include="Views\Admin\Review.cshtml" />
     <Content Include="Views\SuperUser\ViewFormsSuperUser.cshtml" />
