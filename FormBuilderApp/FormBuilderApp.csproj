@@ -199,8 +199,9 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Form.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\InputField.cs" />
+    <Compile Include="Models\Positions.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Workflow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CreateUserViewModel.cs" />
@@ -279,6 +280,8 @@
     <Content Include="Views\Form\FillOut.cshtml" />
     <Content Include="Views\Form\Completed.cshtml" />
     <Content Include="Views\Form\Review.cshtml" />
+    <Content Include="Views\User\ViewFormsSuperUser.cshtml" />
+    <Content Include="Views\User\ViewFormsAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

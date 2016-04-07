@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<FormBuilderApp.Models.Form>
 @{
-    ViewBag.Title = "Completed Forms";
+    ViewBag.Title = "Submitted Forms";
 }
 <h2>Completed Forms</h2>
 <div style="width: 60%; margin: 0 auto;">
@@ -10,23 +10,20 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                    @Html.DisplayNameFor(model => model.Status)
-                </th>
+                    User
+            </th>
             <th></th>
         </tr>
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => item.Name) | 
+                    @Html.ActionLink("View", "Review", new { Controller = "Form", id = item.Id })
                 </td>
                
                 <td>
-                    @Html.ActionLink("View", "Review", new { Controller = "Form", id = item.Id }) |
-                    @Html.ActionLink("Accept", "Accept", new { Controller = "Form", id = item.Id }) |
-                    @Html.ActionLink("Deny", "Deny", new { Controller = "Form", id = item.Id })
-
-                        
+                    @Html.DisplayFor(modelItem => item.UserId)
                 </td>
             </tr>
         }

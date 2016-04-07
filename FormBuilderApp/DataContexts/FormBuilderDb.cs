@@ -12,9 +12,10 @@ namespace FormBuilderApp.DataContexts
         public FormBuilderDb()
             : base("name=DefaultConnection")
         {
-
         }
 
         public DbSet<Form> Forms { get; set; }
+        public DbSet<Workflow> Flow { get; set; }
+        public DbSet<Positions> Position { get; set; }
     }
 }

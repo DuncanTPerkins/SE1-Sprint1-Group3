@@ -44,6 +44,11 @@ namespace FormBuilderApp.DataContexts.IdentityMigrations
                 roleManager.Create(new IdentityRole { Name = "Admin" });
             }
 
+            if (!context.Roles.Any(r => r.Name == "Super User"))
+            {
+                roleManager.Create(new IdentityRole { Name = "Super User" });
+            }
+
             if (!context.Roles.Any(r => r.Name == "User"))
             {
                 roleManager.Create(new IdentityRole { Name = "User" });
@@ -61,6 +66,17 @@ namespace FormBuilderApp.DataContexts.IdentityMigrations
                 };
                 userManager.Create(user, "Pass1!");
                 userManager.AddToRole(user.Id, "Super Admin");
+            }
+
+            if (!context.Users.Any(u => u.UserName == "superuser@test.com"))
+            {
+                var user = new ApplicationUser
+                {
+                    Email = "superuser@test.com",
+                    UserName = "superuser@test.com"
+                };
+                userManager.Create(user, "Pass1!");
+                userManager.AddToRole(user.Id, "Super User");
             }
 
             if (!context.Users.Any(u => u.UserName == "admin@test.com"))
