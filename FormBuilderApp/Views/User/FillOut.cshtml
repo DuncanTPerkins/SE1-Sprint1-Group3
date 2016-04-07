@@ -9,5 +9,7 @@
 }
 
 <h2>@ViewBag.Name.</h2>
+
+@Html.Raw(ViewBag.FormHtml) 
 <input type="hidden" id="FormID" name="FormID" value="@ViewBag.Id" />
 @Html.Raw(ViewBag.FormHtml)

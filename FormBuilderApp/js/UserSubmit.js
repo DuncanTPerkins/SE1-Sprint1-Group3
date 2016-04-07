@@ -6,7 +6,7 @@ $fieldForm.on('submit', function (event) {
     event.preventDefault();
 });
 function submit(e) {
-    var url = '/form/fillout'
+    var url = '/user/fillout'
     var json = JSON.stringify($fieldForm.serializeArray());
     console.log(json);
     var token = $('[name=__RequestVerificationToken]').val();

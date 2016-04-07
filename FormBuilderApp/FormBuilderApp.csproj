@@ -53,6 +53,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -120,9 +124,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -176,9 +177,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\FormController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SuperUserController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataContexts\FormBuilderDb.cs" />
     <Compile Include="DataContexts\FormBuilderMigrations\Configuration.cs" />
@@ -213,8 +215,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="js\html2json.js" />
-    <Content Include="js\htmlparser.js" />
     <Content Include="js\UserSubmit.js" />
     <Content Include="js\FormGeneration.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -257,37 +257,29 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Home\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Home\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Home\Manage\Index.cshtml" />
-    <Content Include="Views\Home\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Home\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Home\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Account\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Account\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Account\Manage\Index.cshtml" />
+    <Content Include="Views\Account\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Account\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Account\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\DummyForm.cshtml" />
-    <Content Include="Views\User\AssignRole.cshtml" />
-    <Content Include="Views\User\Create.cshtml" />
-    <Content Include="Views\User\Roles.cshtml" />
-    <Content Include="Views\User\Users.cshtml" />
-    <Content Include="Views\Home\CreateForm.cshtml" />
-    <Content Include="Views\User\Details.cshtml" />
-    <Content Include="Views\Home\Forms.cshtml" />
-    <Content Include="Views\User\CreateForm.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Form\Create.cshtml" />
-    <Content Include="Views\Home\Edit.cshtml" />
-    <Content Include="Views\Form\FillOut.cshtml" />
-    <Content Include="Views\Form\Completed.cshtml" />
-    <Content Include="Views\Form\Review.cshtml" />
-    <Content Include="Views\User\ViewFormsSuperUser.cshtml" />
-    <Content Include="Views\User\ViewFormsAdmin.cshtml" />
+    <Content Include="Views\Admin\AssignRole.cshtml" />
+    <Content Include="Views\Admin\CreateUser.cshtml" />
+    <Content Include="Views\Admin\Roles.cshtml" />
+    <Content Include="Views\Admin\Users.cshtml" />
+    <Content Include="Views\Admin\Details.cshtml" />
+    <Content Include="Views\User\Forms.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\CreateForm.cshtml" />
+    <Content Include="Views\Admin\Review.cshtml" />
+    <Content Include="Views\SuperUser\ViewFormsSuperUser.cshtml" />
+    <Content Include="Views\Admin\ViewFormsAdmin.cshtml" />
+    <Content Include="Views\User\FillOut.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\AdminViews\" />
-    <Folder Include="Views\SuperAdminViews\" />
-    <Folder Include="Views\UserViews\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

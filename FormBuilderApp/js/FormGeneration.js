@@ -1,6 +1,6 @@
 ﻿var formData = {
-  name: null,
-  fields: []
+    name: null,
+    fields: []
 }
 
 //Search through the DOM for any elements that match the
@@ -28,61 +28,61 @@ var optionsTmpl = _.template($('#optionsTmpl').text());
 var optionField = _.template($('#optionFieldTmpl').text());
 
 // Field Builder submit handler
-$fieldForm.on('submit', function(event) {
-  event.preventDefault();
-  
-  var fieldType = $typeInput.val();
-  var fieldName = $nameInput.val();
-  var isRequired = $requiredInput.prop('checked');
-  var placeholder = $placeholderInput.val();
-  var options = $.map($('.field-option'), function (el) {
-    return $(el).val()
-  });
-  
-  var fieldData = {
-    type: fieldType,
-    name: fieldName,
-    required: isRequired,
-    placeholder: placeholder,
-    options: options
-  }
-  
-  formData.fields.push(fieldData);
-  
-  console.log(formData);
-  
-  
-  resetFieldBuilder();
-  renderFormPreview();
+$fieldForm.on('submit', function (event) {
+    event.preventDefault();
+
+    var fieldType = $typeInput.val();
+    var fieldName = $nameInput.val();
+    var isRequired = $requiredInput.prop('checked');
+    var placeholder = $placeholderInput.val();
+    var options = $.map($('.field-option'), function (el) {
+        return $(el).val()
+    });
+
+    var fieldData = {
+        type: fieldType,
+        name: fieldName,
+        required: isRequired,
+        placeholder: placeholder,
+        options: options
+    }
+
+    formData.fields.push(fieldData);
+
+    console.log(formData);
+
+
+    resetFieldBuilder();
+    renderFormPreview();
 });
 
 function resetFieldBuilder() {
-  $fieldForm[0].reset();
-  $('.placeholder-container').removeClass('hidden');
-  $('#field-options').empty();
+    $fieldForm[0].reset();
+    $('.placeholder-container').removeClass('hidden');
+    $('#field-options').empty();
 }
 
 // Listen to changes on type selection
-$typeInput.on('change', function(e) {
-  var selectedType = $(this).val();
-  var hasPlaceholder = true;
-  var hasOptions = false;
-  
-  var isSelect = selectedType === 'select';
-  var isRadio = selectedType === 'radio';
-  var isCheckbox = selectedType === 'checkbox';
-  
-  // Render options field in field builder if type is select
-  if (isSelect || isRadio || isCheckbox) {
-    hasPlaceholder = false;
-    hasOptions = true;
-    renderOptionsField()
-  }
-  
-  $('.placeholder-container').toggleClass('hidden', !hasPlaceholder);
-  if (!hasOptions) {
-    $('#field-options').empty();
-  }
+$typeInput.on('change', function (e) {
+    var selectedType = $(this).val();
+    var hasPlaceholder = true;
+    var hasOptions = false;
+
+    var isSelect = selectedType === 'select';
+    var isRadio = selectedType === 'radio';
+    var isCheckbox = selectedType === 'checkbox';
+
+    // Render options field in field builder if type is select
+    if (isSelect || isRadio || isCheckbox) {
+        hasPlaceholder = false;
+        hasOptions = true;
+        renderOptionsField()
+    }
+
+    $('.placeholder-container').toggleClass('hidden', !hasPlaceholder);
+    if (!hasOptions) {
+        $('#field-options').empty();
+    }
 });
 
 function renderOptionsField() {
@@ -103,51 +103,51 @@ function renderOptionsField() {
 }
 
 function renderFormPreview() {
-  var $formContent = $(formTmpl(formData));
-  var $formFields = $formContent.find('#fields');
-  formData.fields.forEach(function (field) {
-    $formFields.append(renderField(field));
-  })
-  $preview.html($formContent);
-  console.log(formData);
+    var $formContent = $(formTmpl(formData));
+    var $formFields = $formContent.find('#fields');
+    formData.fields.forEach(function (field) {
+        $formFields.append(renderField(field));
+    })
+    $preview.html($formContent);
+    console.log(formData);
 }
 
 function renderField(fieldData) {
-  switch (fieldData.type) {
-    case 'input':
-      return inputTmpl(fieldData)
-    case 'email':
-      return emailTmpl(fieldData)
-    case 'password':
-      return passwordTmpl(fieldData)
-    case 'tel':
-      return phoneTmpl(fieldData)
-    case 'textarea':
-      return textAreaTmpl(fieldData)
-    case 'checkbox':
-      return checkboxTmpl(fieldData)
-    case 'radio':
-      return radioTmpl(fieldData)
-    case 'select':
-      return dropdownTmpl(fieldData)
-    default:
-      return;
-  }
+    switch (fieldData.type) {
+        case 'input':
+            return inputTmpl(fieldData)
+        case 'email':
+            return emailTmpl(fieldData)
+        case 'password':
+            return passwordTmpl(fieldData)
+        case 'tel':
+            return phoneTmpl(fieldData)
+        case 'textarea':
+            return textAreaTmpl(fieldData)
+        case 'checkbox':
+            return checkboxTmpl(fieldData)
+        case 'radio':
+            return radioTmpl(fieldData)
+        case 'select':
+            return dropdownTmpl(fieldData)
+        default:
+            return;
+    }
 }
 
 function submit(e) {
-    var url = '/form/create'
+    var url = '/admin/createform'
     var postData = $('#preview').html().toString();
     var json = JSON.stringify($("#myForm").serializeArray());
     var token = $('[name=__RequestVerificationToken]').val();
     var values = [$('#formnameInput').val(), $('FormID').val(), postData, json];
-    $.post(url, {__RequestVerificationToken: token, jsonData: values }, function (data) {
-    if (data.error) {
-      alert('Error saving form. Try again later.');
-    } else {
-      alert('Form saved successfully!');
-    }
-  })
+    $.post(url, { __RequestVerificationToken: token, jsonData: values }, function (data) {
+        if (data.error) {
+            alert('Error saving form. Try again later.');
+        } else {
+            alert('Form saved successfully!');
+        }
+    })
 }
 
 $createBtn.on('click', submit);
