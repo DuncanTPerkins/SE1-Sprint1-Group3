@@ -103,7 +103,6 @@ namespace FormBuilderApp.Controllers
             ChildForm.Status = Form.FormStatus.Completed;
             ChildForm.Name = ParentForm.Name;
             ChildForm.UserId = User.Identity.GetUserId();
-            ParentForm.Users.Add(ChildForm.UserId);
             _db.Forms.Add(ChildForm);
             _db.SaveChanges();
             return View();

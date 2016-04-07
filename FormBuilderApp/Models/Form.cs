@@ -16,7 +16,6 @@ namespace FormBuilderApp.Models
         public enum FormStatus { Template = 1, Draft = 2, Completed = 4, Accepted = 8 }
         public FormStatus Status { get; set; }
         public string FormData { get; set; }
-        public List<String> Users { get; set; }
         public String FormObjectRepresentation { get; set; }
         public int WorkflowId { get; set; }
         public virtual Workflow flow { get; set; }
