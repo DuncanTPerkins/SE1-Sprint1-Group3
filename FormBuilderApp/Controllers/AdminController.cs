@@ -28,6 +28,7 @@ namespace FormBuilderApp.Controllers
                 SuperAdmin Stuff
         *******************************/
 
+            // Assign Role
         [Authorize(Roles = "Super Admin")]
         public async Task<ActionResult> AssignRole(string id = "default")
         {
@@ -50,6 +51,7 @@ namespace FormBuilderApp.Controllers
 
         }
 
+        // POST: assign roles
         [Authorize(Roles = "Super Admin")]
         [HttpPost]
         public async Task<ActionResult> AssignRole(string username, string rolename)
@@ -68,6 +70,7 @@ namespace FormBuilderApp.Controllers
             Admin/SuperAdmin Stuff
         *******************************/
 
+        // review forms
         [Authorize(Roles = "Admin, Super Admin")]
         public ActionResult Review(int id)
         {
@@ -99,8 +102,8 @@ namespace FormBuilderApp.Controllers
             {
                 Name = jsonData[0],
                 Status = Models.Form.FormStatus.Template,
-                FormData = jsonData[1]
-                
+                FormData = jsonData[2]
+
 
             });
             _db.SaveChanges();
