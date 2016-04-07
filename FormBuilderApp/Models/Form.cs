@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Web;
 using System.Collections.Generic;
-using System.Json;
-using Newtonsoft.Json.Linq;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.Owin;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -22,7 +17,7 @@ namespace FormBuilderApp.Models
         public FormStatus Status { get; set; }
         public string FormData { get; set; }
         public List<String> Users { get; set; }
-        public List<Dictionary<string, string>> FormObjectRepresentation { get; set; }
+        public String FormObjectRepresentation { get; set; }
         public int WorkflowId { get; set; }
         public virtual Workflow flow { get; set; }
     }

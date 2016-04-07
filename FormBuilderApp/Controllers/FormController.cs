@@ -70,8 +70,7 @@ namespace FormBuilderApp.Controllers
             {
                 Name = jsonData[0],
                 Status = Models.Form.FormStatus.Template,
-                FormData = jsonData[2],
-                //JsonRepresentation = jsonData[3];
+                FormData = jsonData[2]
             });
             _db.SaveChanges();
             return View();
@@ -100,7 +99,7 @@ namespace FormBuilderApp.Controllers
             Form ParentForm = _db.Forms.Find((Int32.Parse(jsonData[0])));
             Form ChildForm = new Form();
             ChildForm.ParentId = ParentForm.Id;
-            ChildForm.FormObjectRepresentation = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(jsonData[1]);
+            ChildForm.FormObjectRepresentation = jsonData[1];
             ChildForm.Status = Form.FormStatus.Completed;
             ChildForm.Name = ParentForm.Name;
             ChildForm.UserId = User.Identity.GetUserId();
