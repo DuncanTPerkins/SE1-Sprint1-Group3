@@ -3,12 +3,16 @@
 }
 @if (ViewContext.HttpContext.User.IsInRole("User"))
 {
-    Response.Redirect("~/Home/Forms");
+    Response.Redirect("~/User/Forms");
 }
 
 else if (ViewContext.HttpContext.User.IsInRole("Admin") ||  ViewContext.HttpContext.User.IsInRole("Super Admin"))
 {
-    Response.Redirect("~/User/Users");
+    Response.Redirect("~/Admin/Users");
+}
+else if (ViewContext.HttpContext.User.IsInRole("Super User"))
+{
+    Response.Redirect("~/SuperUser/ViewFormsSuperUser");
 }
 
 else
