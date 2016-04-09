@@ -1,0 +1,10 @@
+﻿
+@model IEnumerable<FormBuilderApp.Models.Form>
+
+@{
+    ViewBag.Title = "Form Details";
+}
+
+<h2>@ViewBag.Name</h2>
+
+@Html.Raw(ViewBag.FormHtml)

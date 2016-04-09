@@ -18,12 +18,27 @@ namespace FormBuilderApp.Controllers
             return View();
         }
 
-        //Change user roles
+        //Allows "Super User" to view the completed form list
         [Authorize(Roles = "Super User")]
         public ActionResult ViewFormsSuperUser()
         {
             var statusesToShow = Form.FormStatus.Template | Form.FormStatus.Draft | Form.FormStatus.Completed | Form.FormStatus.Accepted | Form.FormStatus.Denied;
             return View(_db.Forms.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Completed).ToList());
+        }
+
+        //Allows "Super User" to view the contents of a certain form
+        [Authorize(Roles = "Super User")]
+        public ActionResult ViewContentSuperUser(int id)
+        {
+            Form form = _db.Forms.Find(id);
+            ViewBag.Name = form.Name;
+            ViewBag.FormHtml = form.FormData;
+            ViewBag.Id = form.Id;
+            if (form == null)
+            {
+                return HttpNotFound();
+            }
+            return View();
         }
     }
 }

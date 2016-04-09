@@ -4,7 +4,7 @@
     ViewBag.Title = "View Forms";
 }
 
-<h2>View Forms</h2>
+<h2>Forms List</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -35,10 +35,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
+            <td>
+                @Html.ActionLink("Details", "ViewContentSuperUser", new { Controller = "SuperUser", id = item.Id })
+            </td>
         </tr>
     }
 </table>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Form List", "ViewFormsSuperUser")
 </div>
