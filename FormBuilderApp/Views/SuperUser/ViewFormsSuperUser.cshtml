@@ -11,8 +11,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
-        <th>
-        </th>
         <th></th>
     </tr>
 
@@ -22,7 +20,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
+
             <td>
+                @Html.ActionLink("View", "ViewContentSuperUser", new { Controller = "SuperUser", id = item.Id })
             </td>
         </tr>
     }
+</table>
