@@ -24,6 +24,11 @@ namespace FormBuilderApp.Controllers
             base.Dispose(disposing);
         }
 
+        public ActionResult Submitted()
+        {
+            return View(_db.Forms.Where(x => x.UserId == User.Identity.GetUserId()));
+        }
+
         [HttpGet]
         [Authorize(Roles = "User")]
         public ActionResult FillOut(int id = 0)
