@@ -1,5 +1,6 @@
 ﻿using FormBuilderApp.DataContexts;
 using FormBuilderApp.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,10 +31,16 @@ namespace FormBuilderApp.Controllers
         [Authorize(Roles = "Super User")]
         public ActionResult ViewContentSuperUser(int id)
         {
+            List<String> FormOutput = new List<String>();
             Form form = _db.Forms.Find(id);
             ViewBag.Name = form.Name;
-            ViewBag.FormHtml = form.FormData;
+            var FormJSON = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(form.FormObjectRepresentation);
+            for (int i = 0; i < FormJSON.Count; i++)
+            {
+                FormOutput.Add(FormJSON[i]["name"] + ": " + FormJSON[i]["value"]);
+            }
             ViewBag.Id = form.Id;
+            ViewBag.Output = FormOutput;
             if (form == null)
             {
                 return HttpNotFound();
