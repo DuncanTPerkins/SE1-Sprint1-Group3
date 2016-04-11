@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Text.RegularExpressions;
 
 namespace FormBuilderApp.Controllers
 {
@@ -75,12 +76,31 @@ namespace FormBuilderApp.Controllers
         public ActionResult Review(int id)
         {
             Form form = _db.Forms.Find(id);
-            ViewBag.FormHtml = form.FormData;
-            ViewBag.Name = form.Name;
-            if (form == null)
+            var formRegex = new Regex("\\\"(.*?)\\\"");
+           
+
+            List<string> formData = new List<string>();
+            string formObject = form.FormObjectRepresentation;
+            string formObject2 = "";
+            foreach (Match m in formRegex.Matches(formObject))
             {
-                return HttpNotFound();
+                string temp = m.ToString();
+                formData.Add(temp);
             }
+            int k = 3;
+            for (int i = 1; i < formData.Count - 1; i= i+4)
+            {
+                formData[i].TrimStart('"');
+                formData[k].TrimEnd('"');
+                formObject2 = formObject2 + " <h2>" + formData[i] + "</h2> ";
+                formObject2 = formObject2 + "<p>" + formData[k] + "</p>";
+                k = k +4;
+            }
+
+            ViewBag.FormHtml = formObject2;
+            ViewBag.Name = form.Name;
+            
+
             return View();
 
         }
