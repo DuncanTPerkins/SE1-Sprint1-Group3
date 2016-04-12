@@ -29,7 +29,11 @@ namespace FormBuilderApp.Controllers
         public ActionResult FillOut(int id = 0)
         {
             Form form = _db.Forms.Find(id);
-            ViewBag.FormHtml = form.FormData;
+            if (form.FormData != null)
+            {
+                ViewBag.FormHtml = form.FormData;
+            }
+            
             ViewBag.Name = form.Name;
             ViewBag.Id = form.Id;
             if (form == null)
@@ -40,7 +44,7 @@ namespace FormBuilderApp.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult FillOut(String[] jsonData)
         {
             var userStore = new UserStore<ApplicationUser>(_identityDb);
@@ -49,7 +53,13 @@ namespace FormBuilderApp.Controllers
             Form ChildForm = new Form();
             ChildForm.ParentId = ParentForm.Id;
             ChildForm.FormObjectRepresentation = jsonData[1];
-            ChildForm.Status = Form.FormStatus.Completed;
+            if (jsonData[2] == "0")
+                ChildForm.Status = Form.FormStatus.Completed;
+            else
+            {
+                ChildForm.FormData = jsonData[3];
+                ChildForm.Status = Form.FormStatus.Draft;
+            }
             ChildForm.Name = ParentForm.Name;
             ChildForm.UserId = User.Identity.GetUserId();
             _db.Forms.Add(ChildForm);
@@ -61,7 +71,9 @@ namespace FormBuilderApp.Controllers
         public ActionResult Forms()
         {
             var statusesToShow = Form.FormStatus.Template | Form.FormStatus.Draft | Form.FormStatus.Completed | Form.FormStatus.Accepted;
-            return View(_db.Forms.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Template).ToList());
+            ViewBag.UserId = User.Identity.GetUserId();
+            //return View(_db.Forms.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Template).ToList());
+            return View(_db.Forms.ToList());
         }
 
         // GET: User
