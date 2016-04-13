@@ -278,6 +278,8 @@
     <Content Include="Views\Admin\ViewFormsAdmin.cshtml" />
     <Content Include="Views\User\FillOut.cshtml" />
     <Content Include="Views\SuperUser\ViewContentSuperUser.cshtml" />
+    <Content Include="Views\User\Submitted.cshtml" />
+    <Content Include="Views\User\ViewSubmitted.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
