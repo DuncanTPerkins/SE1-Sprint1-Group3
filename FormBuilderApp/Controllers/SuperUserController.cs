@@ -36,7 +36,7 @@ namespace FormBuilderApp.Controllers
 
 
             var statusesToShow = Form.FormStatus.Template | Form.FormStatus.Draft | Form.FormStatus.Completed | Form.FormStatus.Accepted | Form.FormStatus.Denied;
-            var forms = _db.Forms.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Completed);
+            var forms = _db.form.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Completed);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -65,7 +65,7 @@ namespace FormBuilderApp.Controllers
         public ActionResult ViewContentSuperUser(int id)
         {
             List<String> FormOutput = new List<String>();
-            Form form = _db.Forms.Find(id);
+            Form form = _db.form.Find(id);
             ViewBag.Name = form.Name;
             var FormJSON = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(form.FormObjectRepresentation);
             for (int i = 0; i < FormJSON.Count; i++)
@@ -79,6 +79,6 @@ namespace FormBuilderApp.Controllers
                 return HttpNotFound();
             }
             return View();
-        }
+        } 
     }
 }

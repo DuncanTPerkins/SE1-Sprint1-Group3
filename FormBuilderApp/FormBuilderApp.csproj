@@ -191,15 +191,15 @@
     <Compile Include="Controllers\SuperUserController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataContexts\FormBuilderDb.cs" />
+    <Compile Include="DataContexts\FormBuilderMigrations\201604231858564_InitialCreate.cs" />
+    <Compile Include="DataContexts\FormBuilderMigrations\201604231858564_InitialCreate.Designer.cs">
+      <DependentUpon>201604231858564_InitialCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataContexts\FormBuilderMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDB.cs" />
     <Compile Include="DataContexts\IdentityMigrations\201602142123515_InitialCreate.cs" />
     <Compile Include="DataContexts\IdentityMigrations\201602142123515_InitialCreate.Designer.cs">
       <DependentUpon>201602142123515_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\IdentityMigrations\201604071041417_Initial.cs" />
-    <Compile Include="DataContexts\IdentityMigrations\201604071041417_Initial.Designer.cs">
-      <DependentUpon>201604071041417_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\IdentityMigrations\Configuration.cs" />
     <Compile Include="Global.asax.cs">
@@ -231,6 +231,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ClassDiagram1.cd" />
     <Content Include="ClassDiagram2.cd" />
+    <None Include="Properties\PublishProfiles\FormBuilderApp.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -269,12 +270,6 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Account\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Account\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Account\Manage\Index.cshtml" />
-    <Content Include="Views\Account\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Account\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Account\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Admin\AssignRole.cshtml" />
@@ -292,6 +287,12 @@
     <Content Include="Views\SuperUser\ViewContentSuperUser.cshtml" />
     <Content Include="Views\User\Submitted.cshtml" />
     <Content Include="Views\User\ViewSubmitted.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Admin\AddWorkFlow.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -306,11 +307,11 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DataContexts\FormBuilderMigrations\201604231858564_InitialCreate.resx">
+      <DependentUpon>201604231858564_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201602142123515_InitialCreate.resx">
       <DependentUpon>201602142123515_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\IdentityMigrations\201604071041417_Initial.resx">
-      <DependentUpon>201604071041417_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
