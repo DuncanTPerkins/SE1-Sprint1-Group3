@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.Mvc;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace FormBuilderApp.Controllers
 {
@@ -86,5 +87,31 @@ namespace FormBuilderApp.Controllers
         {
             return View();
         }
+
+        [Authorize(Roles = "User")]
+        public ActionResult Submitted()
+        {
+            String UserId = User.Identity.GetUserId();
+            return View(_db.form.Where(x => x.UserId == UserId).Where(x => x.Status == Form.FormStatus.Completed));
+        }
+
+        [Authorize(Roles = "User")]
+        [HttpPost]
+        public ActionResult ViewSubmitted(int id = 0)
+        {
+            List<String> FormOutput = new List<String>();
+            Form form = _db.form.Find(id);
+            ViewBag.Name = form.Name;
+            var FormJSON = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(form.FormObjectRepresentation);
+            for (int i = 0; i < FormJSON.Count; i++)
+            {
+                FormOutput.Add(FormJSON[i]["name"] + ": " + FormJSON[i]["value"]);
+            }
+            ViewBag.Id = form.Id;
+            ViewBag.Output = FormOutput;
+
+            return View();
+        }
+
     }
 }
