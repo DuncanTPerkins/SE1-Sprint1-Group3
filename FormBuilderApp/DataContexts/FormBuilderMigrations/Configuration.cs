@@ -70,8 +70,54 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
                     FormObjectRepresentation = "[{'name':'Club Name','value':'Sculpting Club'},{'name':'Club Type','value':'Arts'},{'name':'Staff Liaison','value':'Burt Reynolds'},{'name':'Charter','value':'A  bunch of rules and stuff here.'}]",
                     WorkflowId = 3,
                 }
+            );
 
 
+            context.flow.AddOrUpdate(f => f.FlowId,
+                new Workflow
+                {
+                    FlowId = 3,
+                    FormId = 1,
+                    Positions = new List<Positions>
+                    {
+                        new Positions
+                        {
+                            Id = 1,
+                            Position = "CEO"
+                        },
+
+                        new Positions
+                        {
+                            Id = 2,
+                            Position = "Dean"
+                        },
+
+                        new Positions
+                        {
+                            Id = 3,
+                            Position = "Chairman"
+                        },
+
+                        new Positions
+                        {
+                            Id = 4,
+                            Position = "Manager"
+                        },
+
+                        new Positions
+                        {
+                            Id = 5,
+                            Position = "Project Manager"
+                        },
+
+                        new Positions
+                        {
+                            Id = 6,
+                            Position = "Team Leader"
+                        },
+                    }
+
+                }
             );
 
             context.flow.AddOrUpdate(f => f.FlowId,
@@ -81,39 +127,6 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
                     FormId = 1,
                 }
             );
-
-            context.position.AddOrUpdate(p => p.Id,
-                new Positions
-                {
-                    Id = 1,
-                    Position = "President"
-                },
-
-                new Positions
-                {
-                    Id = 2,
-                    Position = "Chairman"
-                },
-
-                new Positions
-                {
-                    Id = 3,
-                    Position = "Dean"
-                },
-
-                new Positions
-                {
-                    Id = 4,
-                    Position = "Project Manager"
-                },
-
-                new Positions
-                {
-                    Id = 5,
-                    Position = "Team Leader"
-                }
-            );
-
         }
     }
 }
