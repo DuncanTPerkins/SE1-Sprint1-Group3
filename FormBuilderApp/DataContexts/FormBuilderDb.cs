@@ -7,15 +7,16 @@ using System.Web;
 
 namespace FormBuilderApp.DataContexts
 {
-    public class FormBuilderDb : DbContext
+    public class StudentCourseDb : DbContext
     {
-        public FormBuilderDb()
-            : base("name=DefaultConnection")
+        public StudentCourseDb()
+            : base("DefaultConnection")
         {
+
         }
 
-        public DbSet<Form> Forms { get; set; }
-        public DbSet<Workflow> Flow { get; set; }
-        public DbSet<Positions> Position { get; set; }
+        public DbSet<Form> form { get; set; }
+        public DbSet<Workflow> flow { get; set; }
+        public DbSet<Positions> position { get; set; }
     }
 }

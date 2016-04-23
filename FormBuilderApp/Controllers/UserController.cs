@@ -28,13 +28,13 @@ namespace FormBuilderApp.Controllers
         public ActionResult Submitted()
         {
             String UserId = User.Identity.GetUserId();
-            return View(_db.Forms.Where(x => x.UserId == UserId).Where(x => x.Status == Form.FormStatus.Completed));
+            return View(_db.form.Where(x => x.UserId == UserId).Where(x => x.Status == Form.FormStatus.Completed));
         }
 
         public ActionResult ViewSubmitted(int id = 0)
         {
             List<String> FormOutput = new List<String>();
-            Form form = _db.Forms.Find(id);
+            Form form = _db.form.Find(id);
             ViewBag.Name = form.Name;
             var FormJSON = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(form.FormObjectRepresentation);
             for (int i = 0; i < FormJSON.Count; i++)
@@ -51,7 +51,7 @@ namespace FormBuilderApp.Controllers
         [Authorize(Roles = "User")]
         public ActionResult FillOut(int id = 0)
         {
-            Form form = _db.Forms.Find(id);
+            Form form = _db.form.Find(id);
             ViewBag.FormHtml = form.FormData;
             ViewBag.Name = form.Name;
             ViewBag.Id = form.Id;
@@ -68,14 +68,14 @@ namespace FormBuilderApp.Controllers
         {
             var userStore = new UserStore<ApplicationUser>(_identityDb);
             var userManager = new UserManager<ApplicationUser>(userStore);
-            Form ParentForm = _db.Forms.Find((Int32.Parse(jsonData[0])));
+            Form ParentForm = _db.form.Find((Int32.Parse(jsonData[0])));
             Form ChildForm = new Form();
             ChildForm.ParentId = ParentForm.Id;
             ChildForm.FormObjectRepresentation = jsonData[1];
             ChildForm.Status = Form.FormStatus.Completed;
             ChildForm.Name = ParentForm.Name;
             ChildForm.UserId = User.Identity.GetUserId();
-            _db.Forms.Add(ChildForm);
+            _db.form.Add(ChildForm);
             _db.SaveChanges();
             return View();
         }
@@ -84,13 +84,13 @@ namespace FormBuilderApp.Controllers
         public ActionResult Forms()
         {
             var statusesToShow = Form.FormStatus.Template | Form.FormStatus.Draft | Form.FormStatus.Completed | Form.FormStatus.Accepted;
-            return View(_db.Forms.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Template).ToList());
+            return View(_db.form.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Template).ToList());
         }
 
         // GET: User
         public ActionResult Index()
         {
             return View();
-        }        
+        }   
     }
 }

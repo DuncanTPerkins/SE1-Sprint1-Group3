@@ -66,7 +66,7 @@ namespace FormBuilderApp.Controllers
             //if(role == null)
             userManager.AddToRole(user.Id, rolename);
             return RedirectToAction("Users");
-        }
+        } 
 
         /******************************
             Admin/SuperAdmin Stuff
@@ -76,7 +76,7 @@ namespace FormBuilderApp.Controllers
         [Authorize(Roles = "Admin, Super Admin")]
         public ActionResult Review(int id)
         {
-            Form form = _db.Forms.Find(id);
+            Form form = _db.form.Find(id);
             var formRegex = new Regex("\\\"(.*?)\\\"");
            
 
@@ -119,7 +119,7 @@ namespace FormBuilderApp.Controllers
         [ValidateInput(false)]
         public ActionResult CreateForm(String[] jsonData)
         {
-            _db.Forms.Add(new Models.Form
+            _db.form.Add(new Models.Form
             {
                 Name = jsonData[0],
                 Status = Models.Form.FormStatus.Template,
@@ -248,7 +248,7 @@ namespace FormBuilderApp.Controllers
             ViewBag.CurrentFilter = searchString;
 
             var statusesToShow = Form.FormStatus.Template | Form.FormStatus.Draft | Form.FormStatus.Completed | Form.FormStatus.Accepted;
-            var forms = _db.Forms.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Completed);
+            var forms = _db.form.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Completed);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -282,7 +282,6 @@ namespace FormBuilderApp.Controllers
             int pageNumber = (page ?? 1);
 
             return View(forms.ToPagedList(pageNumber, pageSize));
-        }
-    
+        } 
 }
 }
