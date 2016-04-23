@@ -3,12 +3,21 @@
 @{
     ViewBag.Title = "FillOut";
 }
-@section JavaScript 
-{
-<script src="~/js/UserSubmit.js"></script>
-}
+
 
 <h2>@ViewBag.Name.</h2>
 
 <input type="hidden" id="FormID" name="FormID" value="@ViewBag.Id" />
-@Html.Raw(ViewBag.FormHtml)
+
+<form name="genform">
+    @Html.Raw(ViewBag.FormHtml)
+</form>
+
+@section JavaScript
+{        
+    @if (ViewBag.FormObjectRepresentation != null)
+    {
+        <script>window.formValues = @Html.Raw(ViewBag.FormObjectRepresentation)</script>
+    }
+    <script src="~/js/UserSubmit.js"></script>
+}
