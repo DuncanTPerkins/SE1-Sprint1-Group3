@@ -1,226 +1,119 @@
 namespace FormBuilderApp.DataContexts.FormBuilderMigrations
 {
-    using Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Collections.Generic;
     using System.Linq;
+    using FormBuilderApp.Models;
+    using System.Collections.Generic;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<FormBuilderApp.DataContexts.FormBuilderDb>
+    internal sealed class Configuration : DbMigrationsConfiguration<FormBuilderDb>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             MigrationsDirectory = @"DataContexts\FormBuilderMigrations";
         }
 
-        protected override void Seed(FormBuilderApp.DataContexts.FormBuilderDb context)
+        protected override void Seed(FormBuilderDb context)
         {
-            context.Flow.AddOrUpdate(f => f.FormId,
-
-                new Workflow
+            context.form.AddOrUpdate(f => f.Id,
+                new Form
                 {
-                    FlowId = 1,
-                    FormId = 4,
-                    Positions = new List<Positions>
-                        {
-                            new Positions
-                            {
-                                Id = 1,
-                            },
-
-                            new Positions
-                            {
-                                Id = 2,
-                            }
-                        }
+                    Id = 1,
+                    Name = "Survey",
+                    Status = Form.FormStatus.Template,
+                    FormData = "<form name='genform'><div id='fields'><div class='form-group'><label for='Club Name'>Club Name</label><input class='form-control' type='text' name='Club Name' placeholder=''></div><div class='form-group'><label>Club Type</label><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Interests'> Interests</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Social'> Social</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Sports'> Sports</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Departmental'> Departmental</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Arts'> Arts</label></div></div><div class='form-group'><label for='Staff Liaison'>Staff Liaison</label><input class='form-control' type='text' name='Staff Liaison' placeholder=''></div><div class='form-group'><label for='Charter'>Charter</label><textarea class='form-control' type='textarea' name='Charter' placeholder='' <='' div=''></textarea></div></div><button id='later' class='btn btn-danger' type='submit' name='submit' value='Draft'>Save Draft</button><button id='completed' class='btn btn-primary' type='submit' name='submit' value='Complete'>Submit</button></form>",
+                    WorkflowId = 3,
                 },
 
+                new Form
+                {
+                    Id = 2,
+                    ParentId = 1,
+                    Name = "Survey",
+                    Status = Form.FormStatus.Draft,
+                    FormData = "<form name='genform'><div id='fields'><div class='form-group'><label for='Club Name'>Club Name</label><input class='form-control' type='text' name='Club Name' placeholder=''></div><div class='form-group'><label>Club Type</label><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Interests'> Interests</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Social'> Social</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Sports'> Sports</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Departmental'> Departmental</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Arts'> Arts</label></div></div><div class='form-group'><label for='Staff Liaison'>Staff Liaison</label><input class='form-control' type='text' name='Staff Liaison' placeholder=''></div><div class='form-group'><label for='Charter'>Charter</label><textarea class='form-control' type='textarea' name='Charter' placeholder='' <='' div=''></textarea></div></div><button id='later' class='btn btn-danger' type='submit' name='submit' value='Draft'>Save Draft</button><button id='completed' class='btn btn-primary' type='submit' name='submit' value='Complete'>Submit</button></form>",
+                    FormObjectRepresentation = "[{'name':'Club Name','value':'Sculpting Club'},{'name':'Club Type','value':'Arts'},{'name':'Staff Liaison','value':'Burt Reynolds'},{'name':'Charter','value':''}]",
+                    WorkflowId = 3,
+                },
+
+                new Form
+                {
+                    Id = 3,
+                    ParentId = 1,
+                    Name = "Survey",
+                    Status = Form.FormStatus.Completed,
+                    FormData = "<form name='genform'><div id='fields'><div class='form-group'><label for='Club Name'>Club Name</label><input class='form-control' type='text' name='Club Name' placeholder=''></div><div class='form-group'><label>Club Type</label><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Interests'> Interests</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Social'> Social</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Sports'> Sports</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Departmental'> Departmental</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Arts'> Arts</label></div></div><div class='form-group'><label for='Staff Liaison'>Staff Liaison</label><input class='form-control' type='text' name='Staff Liaison' placeholder=''></div><div class='form-group'><label for='Charter'>Charter</label><textarea class='form-control' type='textarea' name='Charter' placeholder='' <='' div=''></textarea></div></div><button id='later' class='btn btn-danger' type='submit' name='submit' value='Draft'>Save Draft</button><button id='completed' class='btn btn-primary' type='submit' name='submit' value='Complete'>Submit</button></form>",
+                    FormObjectRepresentation = "[{'name':'Club Name','value':'Sculpting Club'},{'name':'Club Type','value':'Arts'},{'name':'Staff Liaison','value':'Burt Reynolds'},{'name':'Charter','value':'A  bunch of rules and stuff here.'}]",
+                    WorkflowId = 3,
+                },
+
+                new Form
+                {
+                    Id = 4,
+                    ParentId = 1,
+                    Name = "Survey",
+                    Status = Form.FormStatus.Accepted,
+                    FormData = "<form name='genform'><div id='fields'><div class='form-group'><label for='Club Name'>Club Name</label><input class='form-control' type='text' name='Club Name' placeholder=''></div><div class='form-group'><label>Club Type</label><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Interests'> Interests</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Social'> Social</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Sports'> Sports</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Departmental'> Departmental</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Arts'> Arts</label></div></div><div class='form-group'><label for='Staff Liaison'>Staff Liaison</label><input class='form-control' type='text' name='Staff Liaison' placeholder=''></div><div class='form-group'><label for='Charter'>Charter</label><textarea class='form-control' type='textarea' name='Charter' placeholder='' <='' div=''></textarea></div></div><button id='later' class='btn btn-danger' type='submit' name='submit' value='Draft'>Save Draft</button><button id='completed' class='btn btn-primary' type='submit' name='submit' value='Complete'>Submit</button></form>",
+                    FormObjectRepresentation = "[{'name':'Club Name','value':'Sculpting Club'},{'name':'Club Type','value':'Arts'},{'name':'Staff Liaison','value':'Burt Reynolds'},{'name':'Charter','value':'A  bunch of rules and stuff here.'}]",
+                    WorkflowId = null,
+                },
+
+                new Form
+                {
+                    Id = 5,
+                    ParentId = 1,
+                    Name = "Survey",
+                    Status = Form.FormStatus.Denied,
+                    FormData = "<form name='genform'><div id='fields'><div class='form-group'><label for='Club Name'>Club Name</label><input class='form-control' type='text' name='Club Name' placeholder=''></div><div class='form-group'><label>Club Type</label><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Interests'> Interests</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Social'> Social</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Sports'> Sports</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Departmental'> Departmental</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Arts'> Arts</label></div></div><div class='form-group'><label for='Staff Liaison'>Staff Liaison</label><input class='form-control' type='text' name='Staff Liaison' placeholder=''></div><div class='form-group'><label for='Charter'>Charter</label><textarea class='form-control' type='textarea' name='Charter' placeholder='' <='' div=''></textarea></div></div><button id='later' class='btn btn-danger' type='submit' name='submit' value='Draft'>Save Draft</button><button id='completed' class='btn btn-primary' type='submit' name='submit' value='Complete'>Submit</button></form>",
+                    FormObjectRepresentation = "[{'name':'Club Name','value':'Sculpting Club'},{'name':'Club Type','value':'Arts'},{'name':'Staff Liaison','value':'Burt Reynolds'},{'name':'Charter','value':'A  bunch of rules and stuff here.'}]",
+                    WorkflowId = 3,
+                }
+
+
+            );
+
+            context.flow.AddOrUpdate(f => f.FlowId,
                 new Workflow
                 {
-                    FlowId = 2,
+                    FlowId = 3,
                     FormId = 1,
-                    Positions = new List<Positions>
-                        {
-                           new Positions
-                           {
-                               Id = 2,
-                           },
-
-                           new Positions
-                           {
-                              Id = 3,
-                           }
-                       }
                 }
-           );
-            context.Position.AddOrUpdate(f => f.Id,
+            );
 
+            context.position.AddOrUpdate(p => p.Id,
                 new Positions
                 {
                     Id = 1,
-                     Position = "President"
-
-                 },
-
-                 new Positions
-                 {
-                     Id = 2,
-                     Position = "Manager"
-
-                 },
-
-                 new Positions
-                 {
-                     Id=3,
-                     Position = "Dean"
-
-                 },
-
-                 new Positions
-                 {
-                     Id=4,
-                     Position = "Chairman"
-
-                 },
-
-                 new Positions
-                 {
-                     Id=5,
-                     Position = "Director"
-
-                 }
-             );
-             
-              context.Forms.AddOrUpdate(f => f.Id,
-
-                new Form
-                {
-                    Name = "Student",
-                    ParentId = 1,
-                    FormData = "<h1>Student Page</h1><br />random stuff",
-                    Status = Form.FormStatus.Completed,
-                    WorkflowId = 2
-                },
-             
-                  new Form
-                  {
-                      Name = "Survey",
-                      ParentId = 2,
-                      FormData = "<h1>Status</h1>",   
-                      Status = Form.FormStatus.Completed,
-                      WorkflowId = null
-                  }, 
-
-                  new Form
-                  {
-                      Name = "Survey",
-                      ParentId = 2,
-                      FormData = "<h1>Status</h1>",
-                      Status = Form.FormStatus.Draft,
-                      WorkflowId = null
-                  },
-
-
-
-                  new Form
-                  {
-                      Name = "Student",
-                      ParentId = 1,
-                      FormData = "<h1>Status Update</h1>",
-                      Status = Form.FormStatus.Draft,
-                      WorkflowId = null
-                  },
-
-                  new Form
-                  {
-                      Name = "Student",
-                      ParentId = null,
-                      FormData = "<h1>Student</h1>",
-                      Status = Form.FormStatus.Template,
-                      WorkflowId = 1
-                  },
-
-
-
-                  new Form
-                  {
-                      Name = "Survey",
-                      ParentId = null,
-                      FormData = "<h1>Survey</h1>",
-                      Status = Form.FormStatus.Template,
-                      WorkflowId = null
-                  },
-
-                  new Form
-                  {
-                      Name = "Student",
-                      ParentId = 1,
-                      FormData = "<h1>Status</h1>",
-                      Status = Form.FormStatus.Accepted,
-                      WorkflowId = null
-                  },
-
-
-
-                 new Form
-                 {
-                     Name = "Survey",
-                     ParentId = 2,
-                     FormData = "<h1>Survey Page</h1><br />random stuff",
-                     Status = Form.FormStatus.Accepted,
-                     WorkflowId = null
-
-                 },
-
-                new Form
-                {
-                    Name = "Clubs",
-                    ParentId = 3,
-                    FormData = "<h1>Club Page</h1><br />random stuff",
-                    Status = Form.FormStatus.Draft,
-                    WorkflowId = null
+                    Position = "President"
                 },
 
+                new Positions
+                {
+                    Id = 2,
+                    Position = "Chairman"
+                },
 
+                new Positions
+                {
+                    Id = 3,
+                    Position = "Dean"
+                },
 
-                 new Form
-                 {
-                     Name = "Hobbies",
-                     ParentId = 4,
-                     FormData = "<h1>Hobby Page</h1><br />random stuff",
-                     Status = Form.FormStatus.Draft,
-                     WorkflowId = 2
+                new Positions
+                {
+                    Id = 4,
+                    Position = "Project Manager"
+                },
 
-                 },
+                new Positions
+                {
+                    Id = 5,
+                    Position = "Team Leader"
+                }
+            );
 
-              
-
-
-              
-               
-
-              new Form
-              {
-                  Name = "Hobbies",
-                  ParentId = 4,
-                  FormData = "<h1>Student Page</h1><br />random stuff",
-                  Status = Form.FormStatus.Completed,
-                  WorkflowId = null
-              },
-
-              new Form
-                 {
-                     Name = "Clubs",
-                     ParentId = 3,
-                     FormData = "<h1>Survey Page</h1><br />random stuff",
-                     Status = Form.FormStatus.Completed,
-                     WorkflowId = null
-                 }
-          
-            ); 
         }
     }
 }
-
