@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace FormBuilderApp.Controllers
 {
@@ -21,11 +22,43 @@ namespace FormBuilderApp.Controllers
 
         //Allows "Super User" to view the completed form list
         [Authorize(Roles = "Super User")]
-        public ActionResult ViewFormsSuperUser()
+        public ActionResult ViewFormsSuperUser(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            if (searchString != null)
+                page = 1;
+            else
+                searchString = currentFilter;
+
+            ViewBag.CurrentFilter = searchString;
+
+
             var statusesToShow = Form.FormStatus.Template | Form.FormStatus.Draft | Form.FormStatus.Completed | Form.FormStatus.Accepted | Form.FormStatus.Denied;
-            return View(_db.Forms.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Completed).ToList());
+            var forms = _db.Forms.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Completed);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                forms = forms.Where(s => s.Name.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    forms = forms.OrderByDescending(s => s.Name);
+                    break;
+                default:
+                    forms = forms.OrderBy(s => s.Name);
+                    break;
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+            return View(forms.ToPagedList(pageNumber, pageSize));
         }
+
 
         //Allows "Super User" to view the contents of a certain form
         [Authorize(Roles = "Super User")]

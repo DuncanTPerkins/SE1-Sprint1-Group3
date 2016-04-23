@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Text.RegularExpressions;
+using PagedList;
 
 namespace FormBuilderApp.Controllers
 {
@@ -109,6 +110,7 @@ namespace FormBuilderApp.Controllers
         [HttpGet]
         public ActionResult CreateForm()
         {
+            ViewBag.Positions = _db.Position.Where(p => p.Position != null).Select(p => p);
             return View();
         }
 
@@ -122,7 +124,8 @@ namespace FormBuilderApp.Controllers
             {
                 Name = jsonData[0],
                 Status = Models.Form.FormStatus.Template,
-                FormData = jsonData[2]
+                FormData = jsonData[2],
+                WorkflowId = Convert.ToInt32(jsonData[4])
 
 
             });
@@ -157,7 +160,7 @@ namespace FormBuilderApp.Controllers
                     };
                     userManager.Create(user, model.Password);
                     userManager.AddToRole(user.Id, model.StartingRole);
-                    return RedirectToAction("Users", "User");
+                    return RedirectToAction("Users", "Admin");
                 }
                 else
                 {
@@ -176,9 +179,49 @@ namespace FormBuilderApp.Controllers
         }
 
         [Authorize(Roles = "Admin, Super Admin")]
-        public ActionResult Users()
+        public ActionResult Users(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(_identityDb.Users.ToList());
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.EmailSortParm = String.IsNullOrEmpty(sortOrder) ? "email" : "";
+            ViewBag.UsernameSortParm = sortOrder == "Username" ? "username" : "Username";
+
+            if (searchString != null)
+                page = 1;
+            else
+                searchString = currentFilter;
+
+            ViewBag.CurrentFilter = searchString;
+
+            var users = from s in _identityDb.Users
+                           select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(s => s.Email.Contains(searchString)
+                                       || s.UserName.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "email":
+                    users = users.OrderByDescending(s => s.Email);
+                    break;
+                case "Username":
+                    users = users.OrderBy(s => s.UserName);
+                    break;
+                case "username":
+                    users = users.OrderByDescending(s => s.UserName);
+                    break;
+                default:
+                    users = users.OrderBy(s => s.Email);
+                    break;
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+            return View(users.ToPagedList(pageNumber, pageSize));
         }
 
         [Authorize(Roles = "Super Admin, Admin")]
@@ -192,10 +235,56 @@ namespace FormBuilderApp.Controllers
         }
 
         [Authorize(Roles = "Admin, Super Admin")]
-        public ActionResult ViewFormsAdmin()
+        public ActionResult ViewFormsAdmin(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.StatusSortParm = sortOrder == "Status" ? "status" : "Status";
+            ViewBag.UserSortParm = sortOrder == "UserId" ? "userId" : "UserId";
+
+            if (searchString != null)
+                page = 1;
+            else
+                searchString = currentFilter;
+
+            ViewBag.CurrentFilter = searchString;
+
             var statusesToShow = Form.FormStatus.Template | Form.FormStatus.Draft | Form.FormStatus.Completed | Form.FormStatus.Accepted;
-            return View(_db.Forms.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Completed).ToList());
+            var forms = _db.Forms.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Completed);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                forms = forms.Where(s => s.Name.Contains(searchString)
+                                       || s.UserId.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    forms = forms.OrderByDescending(s => s.Name);
+                    break;
+                case "Status":
+                    forms = forms.OrderBy(s => s.Status);
+                    break;
+                case "status":
+                    forms = forms.OrderByDescending(s => s.Status);
+                    break;
+                case "UserId":
+                    forms = forms.OrderBy(s => s.UserId);
+                    break;
+                case "userId":
+                    forms = forms.OrderByDescending(s => s.UserId);
+                    break;
+                default:
+                    forms = forms.OrderBy(s => s.Name);
+                    break;
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+            return View(forms.ToPagedList(pageNumber, pageSize));
         }
-    }
+    
+}
 }
