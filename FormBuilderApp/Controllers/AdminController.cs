@@ -110,6 +110,7 @@ namespace FormBuilderApp.Controllers
         [HttpGet]
         public ActionResult CreateForm()
         {
+            ViewBag.Positions = _db.Position.Where(p => p.Position != null).Select(p => p);
             return View();
         }
 
@@ -123,7 +124,8 @@ namespace FormBuilderApp.Controllers
             {
                 Name = jsonData[0],
                 Status = Models.Form.FormStatus.Template,
-                FormData = jsonData[2]
+                FormData = jsonData[2],
+                WorkflowId = Convert.ToInt32(jsonData[4])
 
 
             });

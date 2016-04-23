@@ -284,12 +284,16 @@
     <Content Include="Views\SuperUser\ViewContentSuperUser.cshtml" />
     <Content Include="Views\User\Submitted.cshtml" />
     <Content Include="Views\User\ViewSubmitted.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Manage\ManageLogins.cshtml" />
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+=======
+    <Content Include="Views\Admin\AddWorkFlow.cshtml" />
+>>>>>>> 36ebfdff2004b0a285d4cc811548d30277a1a074
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
