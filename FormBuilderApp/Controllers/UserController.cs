@@ -56,9 +56,14 @@ namespace FormBuilderApp.Controllers
             {
                 ViewBag.FormHtml = form.FormData;
             }
+            if (form.FormObjectRepresentation != null)
+            {
+                ViewBag.FormObjectRepresentation = form.FormObjectRepresentation;
+            }
             
             ViewBag.Name = form.Name;
             ViewBag.Id = form.Id;
+            
             if (form == null)
             {
                 return HttpNotFound();
@@ -80,9 +85,9 @@ namespace FormBuilderApp.Controllers
                 ChildForm.Status = Form.FormStatus.Completed;
             else
             {
-                ChildForm.FormData = jsonData[3];
                 ChildForm.Status = Form.FormStatus.Draft;
             }
+            ChildForm.FormData = jsonData[3];
             ChildForm.Name = ParentForm.Name;
             ChildForm.UserId = User.Identity.GetUserId();
             _db.Forms.Add(ChildForm);
