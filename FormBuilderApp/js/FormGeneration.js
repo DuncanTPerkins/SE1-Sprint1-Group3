@@ -7,13 +7,14 @@
 //provided selector and create a new jQuery object that 
 //references each element
 var $createBtn = $('#create');
-var $workflowBtn = $('workflow');
 var $preview = $('#preview');
 var $fieldForm = $('form[name=builder]');
 var $typeInput = $('#typeInput');
 var $nameInput = $('#nameInput');
 var $requiredInput = $('#requiredInput');
 var $placeholderInput = $('#placeholderInput');
+var $positionsInput = $('#position');
+
 
 // Template Functions
 var formTmpl = _.template($('#formTmpl').text());
@@ -142,7 +143,7 @@ function submit(e) {
     var postData = $('#preview').html().toString();
     var json = JSON.stringify($("#myForm").serializeArray());
     var token = $('[name=__RequestVerificationToken]').val();
-    var values = [$('#formnameInput').val(), $('FormID').val(), postData, json];
+    var values = [$('#formnameInput').val(), $('FormID').val(), postData, json, $positionsInput.val()];
     $.post(url, { __RequestVerificationToken: token, jsonData: values }, function (data) {
         if (data.error) {
             alert('Error saving form. Try again later.');
