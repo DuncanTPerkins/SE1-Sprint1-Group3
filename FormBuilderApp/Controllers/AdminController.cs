@@ -110,7 +110,7 @@ namespace FormBuilderApp.Controllers
         [HttpGet]
         public ActionResult CreateForm()
         {
-            ViewBag.Positions = _db.Position.Where(p => p.Position != null).Select(p => p);
+            ViewBag.Positions = _db.position.Where(p => p.Position != null).Select(p => p);
             return View();
         }
 
@@ -249,7 +249,7 @@ namespace FormBuilderApp.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var statusesToShow = Form.FormStatus.Template | Form.FormStatus.Draft | Form.FormStatus.Completed | Form.FormStatus.Accepted;
+            var statusesToShow = Form.FormStatus.Template | Form.FormStatus.Draft | Form.FormStatus.Completed | Form.FormStatus.Accepted | Form.FormStatus.Denied;
             var forms = _db.form.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Completed);
 
             if (!String.IsNullOrEmpty(searchString))

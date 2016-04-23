@@ -5,6 +5,7 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
     using System.Data.Entity.Migrations;
     using System.Linq;
     using FormBuilderApp.Models;
+    using System.Collections.Generic;
 
     internal sealed class Configuration : DbMigrationsConfiguration<FormBuilderDb>
     {
@@ -74,10 +75,37 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
                 {
                     FlowId = 3,
                     FormId = 1,
-                    Input = new Positions()
+                    Positions = new List<Positions>
                     {
-                        Id = 1,
-                        Position = "CEO"
+                        new Positions
+                        {
+                            Id = 1,
+                            Position = "President"
+                        },
+
+                        new Positions
+                        {
+                            Id = 2,
+                            Position = "Chairman"
+                        },
+
+                        new Positions
+                        {
+                            Id = 3,
+                            Position = "Dean"
+                        },
+
+                        new Positions
+                        {
+                            Id = 4,
+                            Position = "Project Manager"
+                        },
+
+                        new Positions
+                        {
+                            Id = 5,
+                            Position = "Team Leader"
+                        }
                     }
                 }
             );

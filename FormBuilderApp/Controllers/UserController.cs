@@ -83,7 +83,7 @@ namespace FormBuilderApp.Controllers
         [Authorize(Roles = "User")]
         public ActionResult Forms()
         {
-            var statusesToShow = Form.FormStatus.Template | Form.FormStatus.Draft | Form.FormStatus.Completed | Form.FormStatus.Accepted;
+            var statusesToShow = Form.FormStatus.Template | Form.FormStatus.Draft | Form.FormStatus.Completed | Form.FormStatus.Accepted | Form.FormStatus.Denied;
             return View(_db.form.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Template).ToList());
         }
 
