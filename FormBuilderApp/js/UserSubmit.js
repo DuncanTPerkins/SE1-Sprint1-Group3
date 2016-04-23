@@ -9,17 +9,25 @@ $fieldForm.on('draft', function (event) {
     event.preventDefault();
 });
 
+if (window.formValues) {
+    window.formValues.forEach(function (field) {
+        $('[name=' + field.name + ']').val(field.value)
+    })
+}
+
+
 var save = function (isDraft) {
     var postData = null;
     if(isDraft)
     {
         var status = 1;
-        postData = $fieldForm.html().toString();
     }
     else
     {
         var status = 0;
     }
+
+        postData = $fieldForm.html().toString();
 
         var url = '/user/fillout'
         var json = JSON.stringify($fieldForm.serializeArray());
