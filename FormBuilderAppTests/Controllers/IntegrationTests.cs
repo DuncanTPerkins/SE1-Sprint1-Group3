@@ -33,29 +33,38 @@ namespace FormBuilderApp.Models.Tests
         [TestMethod()]
         public void IntegrationTest_Position_Valid()
         {
-            Form form = new Form();
-            Workflow flow = new Workflow();
-            Positions positions = new Positions()
+            Form form = new Form()
             {
-                Id = 3,
-                Position = "CEO"
+                flow = new Workflow()
+                {
+                    Input = new Positions()
+                    {
+                        Id = 3,
+                        Position = "CEO"
+                    }
+                }
             };
-            Assert.IsNotNull(positions);
+
+            Assert.IsNotNull(form.flow.Input);
         }
 
         [TestMethod()]
         public void IntegrationTest_Position_Invalid_PositionIdZero()
         {
-            Form form = new Form();
-            Workflow flow = new Workflow();
-            Positions positions = new Positions()
+            Form form = new Form()
             {
-                Id = 0,
-                Position = "CEO"
+                flow = new Workflow()
+                {
+                    Input = new Positions()
+                    {
+                        Id = 0,
+                        Position = "CEO"
+                    }
+                }
             };
 
-            Assert.IsNotNull(positions);
-            Assert.AreEqual(positions.Id, 0);
+            Assert.IsNotNull(form.flow.Input);
+            Assert.AreEqual(0, form.flow.Input.Id);
 
         }
 
@@ -96,21 +105,25 @@ namespace FormBuilderApp.Models.Tests
                     }
                 }
             };
+
             Assert.IsNotNull(form.flow);
             Assert.IsNotNull(form.flow.Input);
         }
 
         [TestMethod()]
-        public void IntegrationTest_Workflow_Invalid_FormWorkflowNull()
+        public void IntegrationTest_Workflow_Invalid_PositionsNull()
         {
-            Form form = new Form();
-            Workflow flow = new Workflow()
+            Form form = new Form()
             {
-                FlowId = 7,
-                FormId = 3
+                flow = new Workflow()
+                {
+                    FlowId = 3,
+                    FormId = 5,
+                }
             };
 
-            Assert.AreEqual(form.flow, null);
+            Assert.IsNotNull(form.flow);
+            Assert.AreEqual(null, form.flow.Input);
         }
 
         [TestMethod()]
@@ -126,13 +139,6 @@ namespace FormBuilderApp.Models.Tests
             Assert.IsTrue(stat);
         }
 
-        [TestMethod()]
-        public void IntegrationTest_Workflow_Invalid_PositionNotCompleted()
-        {
-            Workflow work = new Workflow();
-
-            Assert.AreEqual(work.Input, null);
-        }
 
         /***************************************
                     Form Class
@@ -148,8 +154,8 @@ namespace FormBuilderApp.Models.Tests
                 ParentId = null,
                 UserId = null,
                 WorkflowId = 7,
-                FormData = null,
-                FormObjectRepresentation = "<h1>Survey</h1>",
+                FormData = "",
+                FormObjectRepresentation = null,
                 flow = new Workflow()
                 {
                     FormId = 3,
@@ -258,11 +264,11 @@ namespace FormBuilderApp.Models.Tests
         public void IntegrationTest_LoginViewModel_Invalid_WrongPassword()
         {
             LoginViewModel login = new LoginViewModel();
-            login.Email = "admin@test.com";
+            login.Email = "test@test.com";
             login.Password = "Pass!";
             login.RememberMe = true;
 
-            Assert.AreNotEqual(login.Email, "test@test.com");
+            Assert.AreEqual(login.Email, "test@test.com");
             Assert.AreNotEqual(login.Password, "Pass1!");
             Assert.IsTrue(login.RememberMe);
         }
@@ -365,24 +371,25 @@ namespace FormBuilderApp.Models.Tests
             Assert.AreSame(register.Password, register.ConfirmPassword);
         }
 
+        // ForgotPasswordViewModel
         [TestMethod()]
         public void IntegrationTest_ForgotPasswordViewModel_Valid()
         {
-            ExternalLoginConfirmationViewModel ex = new ExternalLoginConfirmationViewModel();
+            ForgotPasswordViewModel pass = new ForgotPasswordViewModel();
 
-            ex.Email = "test@test.com";
+            pass.Email = "test@test.com";
 
-            Assert.AreEqual(ex.Email, "test@test.com");
+            Assert.AreEqual("test@test.com", pass.Email);
         }
 
         [TestMethod()]
         public void IntegrationTest_ForgotPasswordViewModel_Invalid_WrongEmail()
         {
-            ExternalLoginConfirmationViewModel ex = new ExternalLoginConfirmationViewModel();
+            ForgotPasswordViewModel pass = new ForgotPasswordViewModel();
 
-            ex.Email = "admin@test.com";
+            pass.Email = "admin@test.com";
 
-            Assert.AreNotEqual(ex.Email, "test@test.com");
+            Assert.AreNotEqual("test@test.com", pass.Email);
         }
 
     }
