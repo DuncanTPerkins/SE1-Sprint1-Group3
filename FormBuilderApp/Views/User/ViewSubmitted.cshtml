@@ -1,5 +1,8 @@
-﻿@{
-    ViewBag.Title = "Submitted Form";
+﻿
+@model IEnumerable<FormBuilderApp.Models.Form>
+
+@{
+    ViewBag.Title = "Form Details";
 }
 
 <h2>@ViewBag.Name</h2>
@@ -8,4 +11,3 @@
 {
     <h4>@s</h4>
 }
-@Html.ActionLink("Back to Form List", "Submitted")

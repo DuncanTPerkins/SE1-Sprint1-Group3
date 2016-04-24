@@ -109,7 +109,10 @@ namespace FormBuilderApp.Controllers
             }
             ViewBag.Id = form.Id;
             ViewBag.Output = FormOutput;
-
+            if (form == null)
+            {
+                return HttpNotFound();
+            }
             return View();
         }
 

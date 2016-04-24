@@ -26,7 +26,7 @@
             @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
-            @Html.ActionLink("View", "ViewSubmitted", new { id=item.Id })
+            @Html.ActionLink("View", "ViewSubmitted", new { Controller = "User", id = item.Id })
         </td>
     </tr>
 }

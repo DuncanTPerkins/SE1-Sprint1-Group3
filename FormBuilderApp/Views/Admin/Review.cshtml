@@ -6,4 +6,7 @@
 
 <h2>@ViewBag.Name</h2>
 
-@Html.Raw(ViewBag.FormHtml)
+@foreach (string s in ViewBag.Output)
+{
+    <h4>@s</h4>
+}

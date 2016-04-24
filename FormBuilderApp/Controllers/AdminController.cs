@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Text.RegularExpressions;
 using PagedList;
+using Newtonsoft.Json;
 
 namespace FormBuilderApp.Controllers
 {
@@ -65,7 +66,7 @@ namespace FormBuilderApp.Controllers
             //var role = roles.FirstOrDefault(r => r == rolename);
             //if(role == null)
             userManager.AddToRole(user.Id, rolename);
-            return RedirectToAction("Users");
+            return RedirectToAction("Users", "Admin");
         } 
 
         /******************************
@@ -76,34 +77,22 @@ namespace FormBuilderApp.Controllers
         [Authorize(Roles = "Admin, Super Admin")]
         public ActionResult Review(int id)
         {
+
+            List<String> FormOutput = new List<String>();
             Form form = _db.form.Find(id);
-            var formRegex = new Regex("\\\"(.*?)\\\"");
-           
-
-            List<string> formData = new List<string>();
-            string formObject = form.FormObjectRepresentation;
-            string formObject2 = "";
-            foreach (Match m in formRegex.Matches(formObject))
-            {
-                string temp = m.ToString();
-                formData.Add(temp);
-            }
-            int k = 3;
-            for (int i = 1; i < formData.Count - 1; i= i+4)
-            {
-                formData[i].TrimStart('"');
-                formData[k].TrimEnd('"');
-                formObject2 = formObject2 + " <h2>" + formData[i] + "</h2> ";
-                formObject2 = formObject2 + "<p>" + formData[k] + "</p>";
-                k = k +4;
-            }
-
-            ViewBag.FormHtml = formObject2;
             ViewBag.Name = form.Name;
-            
-
+            var FormJSON = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(form.FormObjectRepresentation);
+            for (int i = 0; i < FormJSON.Count; i++)
+            {
+                FormOutput.Add(FormJSON[i]["name"] + ": " + FormJSON[i]["value"]);
+            }
+            ViewBag.Id = form.Id;
+            ViewBag.Output = FormOutput;
+            if (form == null)
+            {
+                return HttpNotFound();
+            }
             return View();
-
         }
 
         [Authorize(Roles = "Admin, Super Admin")]
