@@ -18,16 +18,9 @@ namespace FormBuilderApp.Models.Tests
     public class UnitTests
     {
 
-        // Display Create Forms Page
-        [TestMethod()]
-        public void test_DisplayCreateFormPage_Valid()
-        {
-            
-        }
-
         // Create Forms
         [TestMethod()]
-        public void CreateForm_Invalid_EmptyForm()
+        public void UnitTests_CreateForm_Invalid_EmptyForm()
         {
             Form form = new Form();
 
@@ -45,7 +38,7 @@ namespace FormBuilderApp.Models.Tests
 
 
         [TestMethod()]
-        public void CreateForm_Valid()
+        public void UnitTests_CreateForm_Valid()
         {
             Form form = new Form()
             {
@@ -64,7 +57,7 @@ namespace FormBuilderApp.Models.Tests
         }
 
         [TestMethod()]
-        public void AddWorkflow_Valid()
+        public void UnitTests_AddWorkflow_Valid()
         {
             Form form = new Form();
             form.flow = new Workflow
@@ -82,7 +75,7 @@ namespace FormBuilderApp.Models.Tests
         }
 
         [TestMethod()]
-        public void AddWorkflow_Invalid_NoPositionsAdded()
+        public void UnitTests_AddWorkflow_Invalid_NoPositionsAdded()
         {
             Form form = new Form();
             form.flow = new Workflow
@@ -95,7 +88,7 @@ namespace FormBuilderApp.Models.Tests
         }
 
         [TestMethod()]
-        public void AddWorkflow_Invalid_NoWorkflowAdded()
+        public void UnitTests_AddWorkflow_Invalid_NoWorkflowAdded()
         {
             Form form = new Form();
 
@@ -105,7 +98,7 @@ namespace FormBuilderApp.Models.Tests
 
         // View Forms
         [TestMethod()]
-        public void ViewForms_Valid()
+        public void UnitTests_ViewForms_Valid()
         {
             var stat = FormBuilderApp.Models.Form.FormStatus.Completed;
             Assert.AreEqual(stat, FormBuilderApp.Models.Form.FormStatus.Completed);
@@ -113,11 +106,115 @@ namespace FormBuilderApp.Models.Tests
 
 
         [TestMethod()]
-        public void ViewForms_Invalid_WrongFormType()
+        public void UnitTests_ViewForms_Invalid_WrongFormType()
         {
             var stat = FormBuilderApp.Models.Form.FormStatus.Template;
             Assert.AreNotEqual(stat, FormBuilderApp.Models.Form.FormStatus.Completed);
         }
+
+        [TestMethod()]
+        public void UnitTests_DenyForms_Valid()
+        {
+            var role = "Super User";
+            Form forms = new Form()
+            {
+                Status = Form.FormStatus.Completed
+            };
+
+            var expected = (Form.FormStatus.Denied).ToString();
+
+            Assert.AreEqual(role, "Super User");
+            Assert.AreEqual(forms.Status, Form.FormStatus.Completed);
+            Assert.AreEqual(expected, "Denied");
+
+        }
+
+        [TestMethod()]
+        public void UnitTests_DenyForms_Invalid_FormNotCompleted()
+        {
+            var role = "Super User";
+            Form forms = new Form()
+            {
+                Status = Form.FormStatus.Draft
+            };
+
+            var expected = (Form.FormStatus.Denied).ToString();
+
+            Assert.AreEqual(role, "Super User");
+            Assert.AreNotEqual(forms.Status, "Completed");
+            Assert.AreEqual(expected, "Denied");
+
+        }
+
+        [TestMethod()]
+        public void UnitTests_DenyForms_Invalid_WrongUserRole()
+        {
+            var role = "User";
+            Form forms = new Form()
+            {
+                Status = Form.FormStatus.Completed
+            };
+
+            var expected = (Form.FormStatus.Denied).ToString();
+
+            Assert.AreNotEqual(role, "Super User");
+            Assert.AreEqual(forms.Status, Form.FormStatus.Completed);
+            Assert.AreEqual(expected, "Denied");
+
+        }
+
+        [TestMethod()]
+        public void UnitTests_AcceptForms_Valid()
+        {
+            var role = "Super User";
+            Form forms = new Form()
+            {
+                Status = Form.FormStatus.Completed
+            };
+
+            var expected = (Form.FormStatus.Accepted).ToString();
+
+            Assert.AreEqual(role, "Super User");
+            Assert.AreEqual(forms.Status, Form.FormStatus.Completed);
+            Assert.AreEqual(expected, "Accepted");
+
+        }
+
+        [TestMethod()]
+        public void UnitTests_AcceptForms_Invalid_FormNotCompleted()
+        {
+            var role = "Super User";
+            Form forms = new Form()
+            {
+                Status = Form.FormStatus.Draft
+            };
+
+            var expected = (Form.FormStatus.Accepted).ToString();
+
+            Assert.AreEqual(role, "Super User");
+            Assert.AreNotEqual(forms.Status, "Completed");
+            Assert.AreEqual(expected, "Accepted");
+
+        }
+
+        [TestMethod()]
+        public void UnitTests_AcceptForms_Invalid_WrongUserRole()
+        {
+            var role = "User";
+            Form forms = new Form()
+            {
+                Status = Form.FormStatus.Completed
+            };
+
+            var expected = (Form.FormStatus.Accepted).ToString();
+
+            Assert.AreNotEqual(role, "Super User");
+            Assert.AreEqual(forms.Status, Form.FormStatus.Completed);
+            Assert.AreEqual(expected, "Accepted");
+
+        }
+
+
     }
 }
 

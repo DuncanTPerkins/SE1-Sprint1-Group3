@@ -6,33 +6,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Moq;
-//using System.Web.Mvc;
+using System.Web.Mvc;
 using FormBuilderApp.Models;
 using System.ComponentModel;
-//using Microsoft.AspNet.Identity.EntityFramework;
-//using Microsoft.AspNet.Identity;
 using System.Security.Principal;
 using System.Web;
-//using System.Data.Entity;
-//using System.Web.Routing;
-
+using System.Web.Routing;
 
 namespace FormBuilderApp.Models.Tests
 {
+
     /***************************************
-                    INTEGRATION TESTS
-                  testing the form class
-               with the following classes
-              workflow, positions, account
-        ***************************************/
+                INTEGRATION TESTS
+              testing the form class
+           with the following classes
+          workflow, positions, account
+    ***************************************/
 
     [TestClass()]
     public class IntegrationTests
     {
 
-        // Bottom-Up: Test Position Class
+        /***************************************
+                    Position Class
+        ***************************************/
         [TestMethod()]
-        public void Test_Position_Valid()
+        public void IntegrationTest_Position_Valid()
         {
             Form form = new Form();
             Workflow flow = new Workflow();
@@ -45,7 +44,7 @@ namespace FormBuilderApp.Models.Tests
         }
 
         [TestMethod()]
-        public void Test_Position_Invalid_PositionIdZero()
+        public void IntegrationTest_Position_Invalid_PositionIdZero()
         {
             Form form = new Form();
             Workflow flow = new Workflow();
@@ -61,7 +60,7 @@ namespace FormBuilderApp.Models.Tests
         }
 
         [TestMethod()]
-        public void Test_Position_Invalid_TwoPositionsSameId()
+        public void IntegrationTest_Position_Invalid_TwoPositionsSameId()
         {
             Form form = new Form();
             Workflow flow = new Workflow();
@@ -77,9 +76,12 @@ namespace FormBuilderApp.Models.Tests
 
         }
 
-        // Bottom-Up: Test Workflow Class
+        /***************************************
+                    Workflow Class
+        ***************************************/
+
         [TestMethod()]
-        public void Test_Workflow_Valid()
+        public void IntegrationTest_Workflow_Valid()
         {
             Form form = new Form()
             {
@@ -99,7 +101,7 @@ namespace FormBuilderApp.Models.Tests
         }
 
         [TestMethod()]
-        public void Test_Workflow_Invalid_FormWorkflowNull()
+        public void IntegrationTest_Workflow_Invalid_FormWorkflowNull()
         {
             Form form = new Form();
             Workflow flow = new Workflow()
@@ -112,7 +114,7 @@ namespace FormBuilderApp.Models.Tests
         }
 
         [TestMethod()]
-        public void Test_Workflow_Invalid_WorkflowsAreTheSame()
+        public void IntegrationTest_Workflow_Invalid_WorkflowsAreTheSame()
         {
             Workflow work = new Workflow();
             Workflow work1 = new Workflow();
@@ -125,16 +127,18 @@ namespace FormBuilderApp.Models.Tests
         }
 
         [TestMethod()]
-        public void Test_Workflow_Invalid_PositionNotCompleted()
+        public void IntegrationTest_Workflow_Invalid_PositionNotCompleted()
         {
             Workflow work = new Workflow();
 
             Assert.AreEqual(work.Input, null);
         }
 
-        // Bottom-Up: Test Form Class
+        /***************************************
+                    Form Class
+        ***************************************/
         [TestMethod()]
-        public void Test_Form_Valid_WorkflowIncluded()
+        public void IntegrationTest_Form_Valid_WorkflowIncluded()
         {
             Form form = new Form()
             {
@@ -163,7 +167,7 @@ namespace FormBuilderApp.Models.Tests
         }
 
         [TestMethod()]
-        public void Test_Form_Valid_WorkflowNotIncluded()
+        public void IntegrationTest_Form_Valid_WorkflowNotIncluded()
         {
             Form form = new Form()
             {
@@ -183,7 +187,7 @@ namespace FormBuilderApp.Models.Tests
         }
 
         [TestMethod()]
-        public void Test_Form_Invalid_FormsContainSameInfo()
+        public void IntegrationTest_Form_Invalid_FormsContainSameInfo()
         {
             Form form = new Form();
             Form form1 = new Form();
@@ -197,72 +201,189 @@ namespace FormBuilderApp.Models.Tests
 
 
 
-        // Bottom-Up: Test AccountLogin
+        /***************************************
+                AccountViewModel Class
+        ***************************************/
+
+            //ExternalLoginConfirmationModel
         [TestMethod()]
-        public void test_ValidUser()
+        public void IntegrationTest_ExternalLoginConfirmationModel_Valid()
         {
-            var fakeHttpContext = new Mock<HttpContextBase>();
-            var fakeIdentity = new GenericIdentity("Admin");
-            var principal = new GenericPrincipal(fakeIdentity, null);
+            ExternalLoginConfirmationViewModel ex = new ExternalLoginConfirmationViewModel();
 
-            fakeHttpContext.Setup(t => t.User).Returns(principal);
-            var controllerContext = new Mock<ControllerContext>();
-            controllerContext.Setup(t => t.HttpContext).Returns(fakeHttpContext.Object);
+            ex.Email = "test@test.com";
 
-            var controller = new AdminController();
-            controller.ControllerContext = controllerContext.Object;
-
-            var result = controller.CreateForm();
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(fakeIdentity.Name, "Admin");
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-
-
+            Assert.AreEqual(ex.Email, "test@test.com");
         }
 
         [TestMethod()]
-        public void test_InvalidUser()
+        public void IntegrationTest_ExternalLoginConfirmationModel_Invalid_WrongEmail()
         {
-            var fakeHttpContext = new Mock<HttpContextBase>();
-            var fakeIdentity = new GenericIdentity("User");
-            var principal = new GenericPrincipal(fakeIdentity, null);
+            ExternalLoginConfirmationViewModel ex = new ExternalLoginConfirmationViewModel();
 
-            fakeHttpContext.Setup(t => t.User).Returns(principal);
-            var controllerContext = new Mock<ControllerContext>();
-            controllerContext.Setup(t => t.HttpContext).Returns(fakeHttpContext.Object);
+            ex.Email = "admin@test.com";
 
-            var controller = new AdminController();
-            controller.ControllerContext = controllerContext.Object;
-
-            var result = controller.CreateForm();
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(fakeIdentity.Name, "User");
-            Assert.IsInstanceOfType(result, typeof(ViewResult), "Error: Not an Admin");
+            Assert.AreNotEqual(ex.Email, "test@test.com");
         }
 
-        /* [TestMethod()]
-        public void test()
+            // LoginViewModel
+        [TestMethod()]
+        public void IntegrationTest_LogInViewModel_Valid()
         {
-            var request = new Mock<HttpRequestBase>();
-            request.SetupGet(x => x.IsAuthenticated).Returns(true); // or false
+            LoginViewModel login = new LoginViewModel();
 
-            var context = new Mock<HttpContextBase>();
-            context.SetupGet(x => x.Request).Returns(request.Object);
+            login.Email = "test@test.com";
+            login.Password = "Pass1!";
+            login.RememberMe = true;
 
-            var controller = new TestController();
-            controller.ControllerContext =
-                   new ControllerContext(context.Object, new RouteData(), controller);
+            Assert.AreEqual(login.Email, "test@test.com");
+            Assert.AreEqual(login.Password, "Pass1!");
+            Assert.IsTrue(login.RememberMe);
+        }
 
-            // test
+        [TestMethod()]
+        public void IntegrationTest_LoginViewModel_Invalid_WrongUser()
+        {
+            LoginViewModel login = new LoginViewModel();
+            login.Email = "admin@test.com";
+            login.Password = "Pass1!";
+            login.RememberMe = true;
 
-            ViewResult viewResult = (ViewResult)controller.Login("Index");
+            Assert.AreNotEqual(login.Email, "test@test.com");
+            Assert.AreEqual(login.Password, "Pass1!");
+            Assert.IsTrue(login.RememberMe);
+        }
 
-            Assert.IsTrue(viewResult.ViewName == "Index");
+        [TestMethod()]
+        public void IntegrationTest_LoginViewModel_Invalid_WrongPassword()
+        {
+            LoginViewModel login = new LoginViewModel();
+            login.Email = "admin@test.com";
+            login.Password = "Pass!";
+            login.RememberMe = true;
 
-        } */
+            Assert.AreNotEqual(login.Email, "test@test.com");
+            Assert.AreNotEqual(login.Password, "Pass1!");
+            Assert.IsTrue(login.RememberMe);
+        }
+
+            // ResetPasswordViewModel
+        [TestMethod()]
+        public void IntegrationTest_ResetPasswordViewModel_Valid()
+        {
+            ResetPasswordViewModel reset = new ResetPasswordViewModel();
+            reset.Password = "Pass1!";
+            reset.ConfirmPassword = "Pass1!";
+            reset.Email = "test@test.com";
+            reset.Code = "1234";
+
+            Assert.AreEqual(reset.Email, "test@test.com");
+            Assert.AreSame(reset.Password, reset.ConfirmPassword);
+            Assert.AreEqual(reset.Code, "1234");
+        }
+
+        [TestMethod()]
+        public void IntegrationTest_ResetPasswordViewModel_Invalid_WrongEmail()
+        {
+            ResetPasswordViewModel reset = new ResetPasswordViewModel();
+            reset.Password = "Pass1!";
+            reset.ConfirmPassword = "Pass1!";
+            reset.Email = "admin@test.com";
+            reset.Code = "1234";
+
+            Assert.AreNotEqual(reset.Email, "test@test.com");
+            Assert.AreSame(reset.Password, reset.ConfirmPassword);
+            Assert.AreEqual(reset.Code, "1234");
+        }
+
+        [TestMethod()]
+        public void IntegrationTest_ResetPasswordViewModel_Invalid_DifferentPasswords()
+        {
+            ResetPasswordViewModel reset = new ResetPasswordViewModel();
+            reset.Password = "Pass1!";
+            reset.ConfirmPassword = "Pass!";
+            reset.Email = "test@test.com";
+            reset.Code = "1234";
+
+            Assert.AreEqual(reset.Email, "test@test.com");
+            Assert.AreNotSame(reset.Password, reset.ConfirmPassword);
+            Assert.AreEqual(reset.Code, "1234");
+        }
+
+        [TestMethod()]
+        public void IntegrationTest_ResetPasswordViewModel_Invalid_WrongCode()
+        {
+            ResetPasswordViewModel reset = new ResetPasswordViewModel();
+            reset.Password = "Pass1!";
+            reset.ConfirmPassword = "Pass1!";
+            reset.Email = "test@test.com";
+            reset.Code = "1234";
+
+            Assert.AreEqual(reset.Email, "test@test.com");
+            Assert.AreSame(reset.Password, reset.ConfirmPassword);
+            Assert.AreNotEqual(reset.Code, "12345");
+        }
+
+            // RegisterViewModel
+        [TestMethod()]
+        public void IntegrationTest_RegisterViewModel_Valid()
+        {
+            RegisterViewModel register = new RegisterViewModel();
+            register.Password = "Pass1!";
+            register.ConfirmPassword = "Pass1!";
+            register.Email = "test@test.com";
+
+            string[] regEmails = { "superuser@test.com", "admin@test.com", "user@test.com" };
+
+            CollectionAssert.DoesNotContain(regEmails, register.Email);
+            Assert.AreSame(register.Password, register.ConfirmPassword);
+        }
+
+        [TestMethod()]
+        public void IntegrationTest_RegisterViewModel_Invalid_DifferentPasswords()
+        {
+            RegisterViewModel register = new RegisterViewModel();
+            register.Password = "Pass1!";
+            register.ConfirmPassword = "Pass!";
+            register.Email = "test@test.com";
+
+            Assert.AreEqual(register.Email, "test@test.com");
+            Assert.AreNotSame(register.Password, register.ConfirmPassword);
+        }
+
+        [TestMethod()]
+        public void IntegrationTest_RegisterViewModel_Invalid_TakenUsername()
+        {
+            RegisterViewModel register = new RegisterViewModel();
+            register.Password = "Pass1!";
+            register.ConfirmPassword = "Pass1!";
+            register.Email = "test@test.com";
+
+            string[] regEmails = {"test@test.com","admin@test.com","user@test.com" };
+
+            CollectionAssert.Contains(regEmails, register.Email);
+            Assert.AreSame(register.Password, register.ConfirmPassword);
+        }
+
+        [TestMethod()]
+        public void IntegrationTest_ForgotPasswordViewModel_Valid()
+        {
+            ExternalLoginConfirmationViewModel ex = new ExternalLoginConfirmationViewModel();
+
+            ex.Email = "test@test.com";
+
+            Assert.AreEqual(ex.Email, "test@test.com");
+        }
+
+        [TestMethod()]
+        public void IntegrationTest_ForgotPasswordViewModel_Invalid_WrongEmail()
+        {
+            ExternalLoginConfirmationViewModel ex = new ExternalLoginConfirmationViewModel();
+
+            ex.Email = "admin@test.com";
+
+            Assert.AreNotEqual(ex.Email, "test@test.com");
+        }
 
     }
 

@@ -20,8 +20,6 @@ namespace FormBuilderApp.Controllers
         private IdentityDb _identityDb = new IdentityDb();
         private FormBuilderDb _db = new FormBuilderDb();
 
-        internal Models.Tests.ControllerContext ControllerContext { get; public set; }
-
         // GET: Admin
         public ActionResult Index()
         {
