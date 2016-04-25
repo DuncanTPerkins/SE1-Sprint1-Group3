@@ -4,6 +4,10 @@
     ViewBag.Title = "FillOut";
 }
 
+@if(ViewBag.DenyReason != null)
+{
+    <h3>Form Applicaton Denied. Reason Given: @ViewBag.DenyReason</h3>
+}
 
 <h2>@ViewBag.Name.</h2>
 

@@ -195,6 +195,10 @@
     <Compile Include="DataContexts\FormBuilderMigrations\201604231858564_InitialCreate.Designer.cs">
       <DependentUpon>201604231858564_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataContexts\FormBuilderMigrations\201604250856467_DummyMigration.cs" />
+    <Compile Include="DataContexts\FormBuilderMigrations\201604250856467_DummyMigration.Designer.cs">
+      <DependentUpon>201604250856467_DummyMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataContexts\FormBuilderMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDB.cs" />
     <Compile Include="DataContexts\IdentityMigrations\201602142123515_InitialCreate.cs" />
@@ -307,6 +311,9 @@
   <ItemGroup>
     <EmbeddedResource Include="DataContexts\FormBuilderMigrations\201604231858564_InitialCreate.resx">
       <DependentUpon>201604231858564_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\FormBuilderMigrations\201604250856467_DummyMigration.resx">
+      <DependentUpon>201604250856467_DummyMigration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201602142123515_InitialCreate.resx">
       <DependentUpon>201602142123515_InitialCreate.cs</DependentUpon>

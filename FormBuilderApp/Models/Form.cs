@@ -17,7 +17,7 @@ namespace FormBuilderApp.Models
         public FormStatus Status { get; set; }
         public string FormData { get; set; }
         public String FormObjectRepresentation { get; set; }
-
+        public String DenyReason { get; set; }
         public int? WorkflowId { get; set; }
         public virtual Workflow flow { get; set; }
     }

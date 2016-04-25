@@ -46,6 +46,8 @@ namespace FormBuilderApp.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.DenyReason = form.DenyReason;
+            form.DenyReason = null;
             return View();
         }
 

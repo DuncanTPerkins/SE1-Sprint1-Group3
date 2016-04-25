@@ -13,12 +13,11 @@
 }
 
 
-
     <div class="container">
         <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("AcceptForm", "SuperUser", new { id = ViewBag.Id})'">Accept a Form</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("AcceptForm", "SuperUser", new { id = ViewBag.Id})'">Accept</button>
 
-        <button type="button" class="btn btn-danger data-toggle="modal" data-target="#myModal">Deny a Form</button>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" onclick="callModal()">Deny</button>
 
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
@@ -28,16 +27,17 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Deny a Form</h4>
+                        <h4 class="modal-title">Deny this Form?</h4>
                     </div>
                     <div class="modal-body">
-                        <form role="form">
+                        <form role="form" action="/superuser/denyform">
                             <div class="form-group">
-                                <label for="denyReason">Reason for Denial</label>
-                                <input name ="denyReason" type="text" class="form-control"
+                                <input type="hidden" name="Id" value="@ViewBag.Id" />
+                                <label for="reason">Reason for Denial</label>
+                                <input name ="reason" type="text" class="form-control"
                                        id="denyReason" placeholder="(Missing Information, Invalid Response, etc...)" />
                             </div>
-                            <button type="submit" onclick="location.href='@Url.Action("DenyForm", "SuperUser", new { id = ViewBag.Id }, "denyReason")'">Deny Form</button>
+                            <button type="submit" class="btn btn-danger">Deny Form</button>
                         </form>
                     </div>
 
