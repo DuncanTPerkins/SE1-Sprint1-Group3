@@ -35,6 +35,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
+            <td>
+                @Html.ActionLink("Review", "Review", new { Controller = "SuperUser", id = item.Id })
+            </td>
         </tr>
     }
 </table>

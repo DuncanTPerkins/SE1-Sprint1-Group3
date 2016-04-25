@@ -277,6 +277,9 @@
     <Content Include="Views\SuperUser\ViewFormsSuperUser.cshtml" />
     <Content Include="Views\Admin\ViewFormsAdmin.cshtml" />
     <Content Include="Views\User\FillOut.cshtml" />
+    <Content Include="Views\SuperUser\Review.cshtml" />
+    <Content Include="Views\SuperUser\Deny.cshtml" />
+    <Content Include="Views\SuperUser\Accept.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
