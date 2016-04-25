@@ -125,6 +125,8 @@ namespace FormBuilderApp.Controllers
 
 
             };
+            _db.form.Add(form);
+            _db.SaveChanges();
 
             
             Workflow workFlow = new Models.Workflow
@@ -140,14 +142,14 @@ namespace FormBuilderApp.Controllers
                 positions.Add(_db.position.Find(positionIds[i]));
             }
 
-
-
             workFlow.Positions = positions;
+
+            _db.flow.Add(workFlow);
+            _db.SaveChanges();
+
 
             form.WorkflowId = workFlow.FlowId;
 
-            _db.form.Add(form);
-            _db.flow.Add(workFlow);
             _db.SaveChanges();
 
             return View();
