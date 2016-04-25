@@ -207,11 +207,7 @@ namespace FormBuilderApp.Models.Tests
             Form forms = new Form()
             {
                 Id = 4,
-                ParentId = 1,
-                Name = "Club Creation",
                 Status = Form.FormStatus.Draft,
-                FormData = "[{'name':'Club Name','value':'Sculpting Club'},{'name':'Club Type','value':'Arts'},{'name':'Staff Liaison','value':'Burt Reynolds'},{'name':'Charter','value':'A  bunch of rules and stuff here.'}]",
-                FormObjectRepresentation = "<form name = 'genform'><div id='fields'><div class='form-group'><label for='Club Name'>Club Name</label><input class='form-control' type='text' name='Club Name' placeholder=''></div><div class='form-group'><label>Club Type</label><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Interests'> Interests</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Social'> Social</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Sports'> Sports</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Departmental'> Departmental</label></div><div class='radio'><label><input class='radio' type='radio' name='Club Type' value='Arts'> Arts</label></div></div><div class='form-group'><label for='Staff Liaison'>Staff Liaison</label><input class='form-control' type='text' name='Staff Liaison' placeholder=''></div><div class='form-group'><label for='Charter'>Charter</label><textarea class='form-control' type='textarea' name='Charter' placeholder='' <='' div=''></textarea></div></div><button id = 'later' class='btn btn-danger' type='submit' name='submit' value='Draft'>Save Draft</button><button id = 'completed' class='btn btn-primary' type='submit' name='submit' value='Complete'>Submit</button></form>"
             };
 
             int[] prevSavedFormsForUser = { 2, 1, 7};

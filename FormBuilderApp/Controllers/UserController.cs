@@ -96,8 +96,7 @@ namespace FormBuilderApp.Controllers
         }
 
         [Authorize(Roles = "User")]
-        [HttpPost]
-        public ActionResult ViewSubmitted(int id = 0)
+        public ActionResult ViewSubmitted(int id)
         {
             List<String> FormOutput = new List<String>();
             Form form = _db.form.Find(id);
