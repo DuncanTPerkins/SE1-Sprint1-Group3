@@ -22,13 +22,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("UserId", "ViewFormsAdmin", new { sortOrder = ViewBag.UserSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
             @Html.ActionLink("Name", "ViewFormsAdmin", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("Status", "ViewFormsAdmin", new { sortOrder = ViewBag.StatusSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
@@ -37,13 +31,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
                 @Html.ActionLink("Review", "Review", new { Controller = "Admin", id = item.Id })

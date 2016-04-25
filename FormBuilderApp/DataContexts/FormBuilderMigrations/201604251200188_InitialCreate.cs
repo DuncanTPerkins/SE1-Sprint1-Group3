@@ -3,7 +3,7 @@ namespace FormBuilderApp.DataContexts.FormBuilderMigrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class DummyMigration : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {

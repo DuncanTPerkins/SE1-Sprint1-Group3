@@ -1,12 +1,13 @@
 ﻿@model IEnumerable<FormBuilderApp.Models.Form>
 
 @{
-    ViewBag.Title = "Review";
+    ViewBag.Title = "FillOut";
 }
 
-<h2>@ViewBag.Name</h2>
+<h2>@ViewBag.Name.</h2>
 
-@foreach (string s in ViewBag.Output)
-{
-    <h4>@s</h4>
-}
+<input type="hidden" id="FormID" name="FormID" value="@ViewBag.Id" />
+
+<form name="genform">
+    @Html.Raw(ViewBag.FormHtml)
+</form>

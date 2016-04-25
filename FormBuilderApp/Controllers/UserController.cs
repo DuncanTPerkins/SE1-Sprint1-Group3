@@ -67,6 +67,7 @@ namespace FormBuilderApp.Controllers
             {
                 ChildForm.Status = Form.FormStatus.Draft;
             }
+
             ChildForm.FormData = jsonData[3];
             ChildForm.Name = ParentForm.Name;
             ChildForm.UserId = User.Identity.GetUserId();

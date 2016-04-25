@@ -35,12 +35,16 @@
             <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
+            <th></th>
         </tr>
         @foreach (var item in Model.Where(x => x.Status == FormBuilderApp.Models.Form.FormStatus.Draft && x.UserId == ViewBag.UserId))
         {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DenyReason)
                 </td>
                 <td>
                     @Html.ActionLink("Fill Out", "FillOut", new { Controller = "User", id = item.Id })

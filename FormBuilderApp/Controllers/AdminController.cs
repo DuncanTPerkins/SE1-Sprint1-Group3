@@ -75,23 +75,26 @@ namespace FormBuilderApp.Controllers
 
         // review forms
         [Authorize(Roles = "Admin, Super Admin")]
+        [HttpGet]
         public ActionResult Review(int id)
         {
-
-            List<String> FormOutput = new List<String>();
             Form form = _db.form.Find(id);
-            ViewBag.Name = form.Name;
-            var FormJSON = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(form.FormObjectRepresentation);
-            for (int i = 0; i < FormJSON.Count; i++)
+            ViewBag.FormHtml = form.FormData;
+            
+            /*if (form.FormObjectRepresentation != null)
             {
-                FormOutput.Add(FormJSON[i]["name"] + ": " + FormJSON[i]["value"]);
-            }
+                ViewBag.FormObjectRepresentation = form.FormObjectRepresentation;
+            } */
+
+            ViewBag.Name = form.Name;
             ViewBag.Id = form.Id;
-            ViewBag.Output = FormOutput;
+
             if (form == null)
             {
                 return HttpNotFound();
             }
+            //ViewBag.DenyReason = form.DenyReason;
+            //form.DenyReason = null;
             return View();
         }
 
@@ -265,7 +268,7 @@ namespace FormBuilderApp.Controllers
             ViewBag.CurrentFilter = searchString;
 
             var statusesToShow = Form.FormStatus.Template | Form.FormStatus.Draft | Form.FormStatus.Completed | Form.FormStatus.Accepted | Form.FormStatus.Denied;
-            var forms = _db.form.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Completed);
+            var forms = _db.form.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Template);
 
             if (!String.IsNullOrEmpty(searchString))
             {
