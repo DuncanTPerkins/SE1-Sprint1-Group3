@@ -1,0 +1,15 @@
+﻿
+@model IEnumerable<FormBuilderApp.Models.Form>
+
+@{
+    ViewBag.Title = "Form Details";
+}
+
+<h2>@ViewBag.Name</h2>
+
+@foreach(string s in ViewBag.Output)
+{
+    <h4>@s</h4>
+}
+
+<button type="button" onclick="location.href='@Url.Action("AcceptForm", "SuperUser", ViewBag.Id)'">Accept Form</button>
