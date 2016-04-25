@@ -8,10 +8,6 @@
 
 <h2>Users</h2>
 
-<div>
-    <a href="/Admin/CreateUser">Create New</a>
-</div>
-
 @using (Html.BeginForm("Users", "Admin", FormMethod.Get))
 {
     <p style="float: right">
@@ -23,7 +19,7 @@
 @if (ViewContext.HttpContext.User.IsInRole("Super Admin"))
 {
     <p>
-        @Html.ActionLink("Add User", "Create")
+        @Html.ActionLink("Add User", "CreateUser")
     </p>
 }
 <table class="table">
@@ -31,41 +27,11 @@
         <th>
             @Html.ActionLink("Email", "Users", new { sortOrder = ViewBag.EmailSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.EmailConfirmed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PasswordHash)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SecurityStamp)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TwoFactorEnabled)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LockoutEnabled)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AccessFailedCount)
-        </th>*@
         <th>
             @Html.ActionLink("Username", "Users", new { sortOrder = ViewBag.UsernameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         </th>
         <th>Options</th>
-        @*<th>
-            Number of Roles
-        </th>*@
     </tr>
 
 @foreach (var item in Model) {
@@ -73,45 +39,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.EmailConfirmed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PasswordHash)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SecurityStamp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumberConfirmed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TwoFactorEnabled)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LockoutEndDateUtc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LockoutEnabled)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AccessFailedCount)
-        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.UserName)
         </td>
-            @*<a href="/user/viewroles">@item.Roles.Count()</a>*@
-            @*@item.Roles.Count()*@
         <td>
             @if (ViewContext.HttpContext.User.IsInRole("Super Admin"))
             {
                 @Html.ActionLink("Edit Role", "AssignRole", new { id = item.Id }) <text>|</text>
             }
             @Html.ActionLink("Details", "Details", new { id=item.Id }) 
-            @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
         </td>
     </tr>
 }
@@ -123,10 +59,3 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
 
 @Html.PagedListPager(Model, page => Url.Action("Users",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-
-@if(ViewContext.HttpContext.User.IsInRole("Super Admin"))
-{
-    @*<div>
-        <a href="/user/assignrole">Assign Role</a>
-    </div>*@
-}

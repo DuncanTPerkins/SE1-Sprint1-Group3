@@ -31,7 +31,7 @@ namespace FormBuilderApp.Controllers
                 SuperAdmin Stuff
         *******************************/
 
-            // Assign Role
+        // Assign Role
         [Authorize(Roles = "Super Admin")]
         public async Task<ActionResult> AssignRole(string id = "default")
         {
@@ -44,7 +44,7 @@ namespace FormBuilderApp.Controllers
                 var roleStore = new RoleStore<IdentityRole>(_identityDb);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
                 ViewBag.Role = roleManager.FindById(User.Roles.FirstOrDefault().RoleId).Name;
-                // await ViewBag.Roles.Add(roleManager.FindById(User.Roles.FirstOrDefault().RoleId));
+                //await ViewBag.Roles.Add(roleManager.FindById(User.Roles.FirstOrDefault().RoleId));
                 ViewBag.UserNames = _identityDb.Users.Select(u => u.UserName);
                 ViewBag.RoleNames = _identityDb.Roles.Select(r => r.Name);
                 return View();
@@ -67,7 +67,7 @@ namespace FormBuilderApp.Controllers
             //if(role == null)
             userManager.AddToRole(user.Id, rolename);
             return RedirectToAction("Users", "Admin");
-        } 
+        }
 
         /******************************
             Admin/SuperAdmin Stuff
@@ -158,13 +158,6 @@ namespace FormBuilderApp.Controllers
             }
             ViewBag.RoleNames = _identityDb.Roles.Select(r => r.Name);
             return View(model);
-        }
-
-        [Authorize(Roles = "Admin, Super Admin")]
-        public ActionResult Roles()
-        {
-            ViewBag.Roles = _identityDb.Roles;
-            return View(_identityDb.Roles.ToList());
         }
 
         [Authorize(Roles = "Admin, Super Admin")]

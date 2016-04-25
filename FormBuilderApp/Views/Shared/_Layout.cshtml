@@ -20,7 +20,6 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
                     @if (ViewContext.HttpContext.User.IsInRole("User"))
                     {
                         <li>@Html.ActionLink("Available Forms", "Forms", "User")</li>
@@ -30,9 +29,9 @@
                     @if (ViewContext.HttpContext.User.IsInRole("Super Admin") || ViewContext.HttpContext.User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("Create Form", "CreateForm", "Admin")</li>
+                        <li>@Html.ActionLink("View Forms", "ViewFormsAdmin", "Admin")</li>
                         <li>@Html.ActionLink("Create Users", "CreateUser", "Admin")</li>
                         <li>@Html.ActionLink("View Users", "Users", "Admin")</li>
-                        <li>@Html.ActionLink("View Forms", "ViewFormsAdmin", "Admin")</li>
                     }
                     @if (ViewContext.HttpContext.User.IsInRole("Super User"))
                     {
