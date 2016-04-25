@@ -1,11 +1,12 @@
 ﻿using FormBuilderApp.DataContexts;
 using FormBuilderApp.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Text.RegularExpressions;
+using PagedList;
 
 namespace FormBuilderApp.Controllers
 {
@@ -19,62 +20,65 @@ namespace FormBuilderApp.Controllers
             return View();
         }
 
-        //Change user roles
+        //Allows "Super User" to view the completed form list
         [Authorize(Roles = "Super User")]
-        public ActionResult ViewFormsSuperUser()
+        public ActionResult ViewFormsSuperUser(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            if (searchString != null)
+                page = 1;
+            else
+                searchString = currentFilter;
+
+            ViewBag.CurrentFilter = searchString;
+
+
             var statusesToShow = Form.FormStatus.Template | Form.FormStatus.Draft | Form.FormStatus.Completed | Form.FormStatus.Accepted | Form.FormStatus.Denied;
-            return View(_db.Forms.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Completed).ToList());
+            var forms = _db.form.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Completed);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                forms = forms.Where(s => s.Name.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    forms = forms.OrderByDescending(s => s.Name);
+                    break;
+                default:
+                    forms = forms.OrderBy(s => s.Name);
+                    break;
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+            return View(forms.ToPagedList(pageNumber, pageSize));
         }
 
+
+        //Allows "Super User" to view the contents of a certain form
         [Authorize(Roles = "Super User")]
-        public ActionResult Review(int id)
+        public ActionResult ViewContentSuperUser(int id)
         {
-            Form form = _db.Forms.Find(id);
-            var formRegex = new Regex("\\\"(.*?)\\\"");
-            currentFormID = id;
-
-            List<string> formData = new List<string>();
-            string formObject = form.FormObjectRepresentation;
-            string formObject2 = "";
-            foreach (Match m in formRegex.Matches(formObject))
-            {
-                string temp = m.ToString();
-                formData.Add(temp);
-            }
-            int k = 3;
-            for (int i = 1; i < formData.Count - 1; i = i + 4)
-            {
-                formData[i].TrimStart('"');
-                formData[k].TrimEnd('"');
-                formObject2 = formObject2 + " <h2>" + formData[i] + "</h2> ";
-                formObject2 = formObject2 + "<p>" + formData[k] + "</p>";
-                k = k + 4;
-            }
-
-            ViewBag.FormHtml = formObject2;
+            List<String> FormOutput = new List<String>();
+            Form form = _db.form.Find(id);
             ViewBag.Name = form.Name;
-
-
+            var FormJSON = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(form.FormObjectRepresentation);
+            for (int i = 0; i < FormJSON.Count; i++)
+            {
+                FormOutput.Add(FormJSON[i]["name"] + ": " + FormJSON[i]["value"]);
+            }
+            ViewBag.Id = form.Id;
+            ViewBag.Output = FormOutput;
+            if (form == null)
+            {
+                return HttpNotFound();
+            }
             return View();
-
-        }
-
-        
-        [Authorize(Roles = "Super User")]
-        public ActionResult Accept(int id)
-        {
-            Form form = _db.Forms.Find(id);
-            form.Status = Form.FormStatus.Accepted;
-            return View();
-        }
-
-        [Authorize(Roles = "Super User")]
-        public ActionResult Deny(int id)
-        {
-            Form form = _db.Forms.Find(id);
-            form.Status = Form.FormStatus.Denied;
-            return View();
-        }
+        } 
     }
 }

@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Text.RegularExpressions;
+using PagedList;
+using Newtonsoft.Json;
 
 namespace FormBuilderApp.Controllers
 {
@@ -64,8 +66,8 @@ namespace FormBuilderApp.Controllers
             //var role = roles.FirstOrDefault(r => r == rolename);
             //if(role == null)
             userManager.AddToRole(user.Id, rolename);
-            return RedirectToAction("Users");
-        }
+            return RedirectToAction("Users", "Admin");
+        } 
 
         /******************************
             Admin/SuperAdmin Stuff
@@ -75,40 +77,29 @@ namespace FormBuilderApp.Controllers
         [Authorize(Roles = "Admin, Super Admin")]
         public ActionResult Review(int id)
         {
-            Form form = _db.Forms.Find(id);
-            var formRegex = new Regex("\\\"(.*?)\\\"");
-           
 
-            List<string> formData = new List<string>();
-            string formObject = form.FormObjectRepresentation;
-            string formObject2 = "";
-            foreach (Match m in formRegex.Matches(formObject))
-            {
-                string temp = m.ToString();
-                formData.Add(temp);
-            }
-            int k = 3;
-            for (int i = 1; i < formData.Count - 1; i= i+4)
-            {
-                formData[i].TrimStart('"');
-                formData[k].TrimEnd('"');
-                formObject2 = formObject2 + " <h2>" + formData[i] + "</h2> ";
-                formObject2 = formObject2 + "<p>" + formData[k] + "</p>";
-                k = k +4;
-            }
-
-            ViewBag.FormHtml = formObject2;
+            List<String> FormOutput = new List<String>();
+            Form form = _db.form.Find(id);
             ViewBag.Name = form.Name;
-            
-
+            var FormJSON = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(form.FormObjectRepresentation);
+            for (int i = 0; i < FormJSON.Count; i++)
+            {
+                FormOutput.Add(FormJSON[i]["name"] + ": " + FormJSON[i]["value"]);
+            }
+            ViewBag.Id = form.Id;
+            ViewBag.Output = FormOutput;
+            if (form == null)
+            {
+                return HttpNotFound();
+            }
             return View();
-
         }
 
         [Authorize(Roles = "Admin, Super Admin")]
         [HttpGet]
         public ActionResult CreateForm()
         {
+            ViewBag.Positions = _db.position.Where(p => p.Position != null).Select(p => p);
             return View();
         }
 
@@ -118,11 +109,12 @@ namespace FormBuilderApp.Controllers
         [ValidateInput(false)]
         public ActionResult CreateForm(String[] jsonData)
         {
-            _db.Forms.Add(new Models.Form
+            _db.form.Add(new Models.Form
             {
                 Name = jsonData[0],
                 Status = Models.Form.FormStatus.Template,
-                FormData = jsonData[2]
+                FormData = jsonData[2],
+                WorkflowId = Convert.ToInt32(jsonData[4])
 
 
             });
@@ -157,7 +149,7 @@ namespace FormBuilderApp.Controllers
                     };
                     userManager.Create(user, model.Password);
                     userManager.AddToRole(user.Id, model.StartingRole);
-                    return RedirectToAction("Users", "User");
+                    return RedirectToAction("Users", "Admin");
                 }
                 else
                 {
@@ -176,9 +168,49 @@ namespace FormBuilderApp.Controllers
         }
 
         [Authorize(Roles = "Admin, Super Admin")]
-        public ActionResult Users()
+        public ActionResult Users(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(_identityDb.Users.ToList());
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.EmailSortParm = String.IsNullOrEmpty(sortOrder) ? "email" : "";
+            ViewBag.UsernameSortParm = sortOrder == "Username" ? "username" : "Username";
+
+            if (searchString != null)
+                page = 1;
+            else
+                searchString = currentFilter;
+
+            ViewBag.CurrentFilter = searchString;
+
+            var users = from s in _identityDb.Users
+                           select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(s => s.Email.Contains(searchString)
+                                       || s.UserName.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "email":
+                    users = users.OrderByDescending(s => s.Email);
+                    break;
+                case "Username":
+                    users = users.OrderBy(s => s.UserName);
+                    break;
+                case "username":
+                    users = users.OrderByDescending(s => s.UserName);
+                    break;
+                default:
+                    users = users.OrderBy(s => s.Email);
+                    break;
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+            return View(users.ToPagedList(pageNumber, pageSize));
         }
 
         [Authorize(Roles = "Super Admin, Admin")]
@@ -192,10 +224,55 @@ namespace FormBuilderApp.Controllers
         }
 
         [Authorize(Roles = "Admin, Super Admin")]
-        public ActionResult ViewFormsAdmin()
+        public ActionResult ViewFormsAdmin(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            var statusesToShow = Form.FormStatus.Template | Form.FormStatus.Draft | Form.FormStatus.Completed | Form.FormStatus.Accepted;
-            return View(_db.Forms.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Completed).ToList());
-        }
-    }
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.StatusSortParm = sortOrder == "Status" ? "status" : "Status";
+            ViewBag.UserSortParm = sortOrder == "UserId" ? "userId" : "UserId";
+
+            if (searchString != null)
+                page = 1;
+            else
+                searchString = currentFilter;
+
+            ViewBag.CurrentFilter = searchString;
+
+            var statusesToShow = Form.FormStatus.Template | Form.FormStatus.Draft | Form.FormStatus.Completed | Form.FormStatus.Accepted | Form.FormStatus.Denied;
+            var forms = _db.form.Where(x => (x.Status & statusesToShow) == Form.FormStatus.Completed);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                forms = forms.Where(s => s.Name.Contains(searchString)
+                                       || s.UserId.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    forms = forms.OrderByDescending(s => s.Name);
+                    break;
+                case "Status":
+                    forms = forms.OrderBy(s => s.Status);
+                    break;
+                case "status":
+                    forms = forms.OrderByDescending(s => s.Status);
+                    break;
+                case "UserId":
+                    forms = forms.OrderBy(s => s.UserId);
+                    break;
+                case "userId":
+                    forms = forms.OrderByDescending(s => s.UserId);
+                    break;
+                default:
+                    forms = forms.OrderBy(s => s.Name);
+                    break;
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+            return View(forms.ToPagedList(pageNumber, pageSize));
+        } 
+}
 }

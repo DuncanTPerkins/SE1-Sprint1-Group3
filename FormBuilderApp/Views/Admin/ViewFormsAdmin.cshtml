@@ -1,4 +1,6 @@
-﻿@model IEnumerable<FormBuilderApp.Models.Form>
+﻿@model PagedList.IPagedList<FormBuilderApp.Models.Form>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "View Forms";
@@ -6,19 +8,27 @@
 
 <h2>View Forms</h2>
 
+@using (Html.BeginForm("ViewFormsAdmin", "Admin", FormMethod.Get))
+{
+    <p style="float: right">
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "CreateForm")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.UserId)
+            @Html.ActionLink("UserId", "ViewFormsAdmin", new { sortOrder = ViewBag.UserSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.ActionLink("Name", "ViewFormsAdmin", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            @Html.ActionLink("Status", "ViewFormsAdmin", new { sortOrder = ViewBag.StatusSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
@@ -41,6 +51,12 @@
         </tr>
     }
 </table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("ViewFormsAdmin",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 
 <div>
     @Html.ActionLink("Back to List", "Index")
