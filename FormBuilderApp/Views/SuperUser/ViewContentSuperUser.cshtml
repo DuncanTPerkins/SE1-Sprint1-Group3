@@ -11,3 +11,40 @@
 {
     <h4>@s</h4>
 }
+
+
+
+    <div class="container">
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg" onclick="location.href='@Url.Action("AcceptForm", "SuperUser", new { id = ViewBag.Id})'">Accept a Form</button>
+
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Deny a Form</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Deny a Form</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="denyReason">Reason for Denial</label>
+                                <input type="text" class="form-control"
+                                       id="denyReason" placeholder="(Missing Information, Invalid Response, etc...)" />
+                            </div>
+                            <button type="button" onclick="location.href='@Url.Action("DenyForm", "SuperUser", new { id = ViewBag.Id})'">Deny Form</button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+

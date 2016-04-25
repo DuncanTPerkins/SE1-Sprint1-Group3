@@ -79,6 +79,25 @@ namespace FormBuilderApp.Controllers
                 return HttpNotFound();
             }
             return View();
-        } 
+        }
+
+        [Authorize(Roles = "Super User")]
+        public ActionResult AcceptForm(int id)
+        {
+            Form form = _db.form.Find(id);
+            form.Status = Form.FormStatus.Accepted;
+            _db.SaveChanges();
+            return RedirectToAction("ViewFormsSuperUser", "SuperUser");
+        }
+
+        [Authorize(Roles = "Super User")]
+        public ActionResult DenyForm(int id)
+        {
+            Form form = _db.form.Find(id);
+            form.Status = Form.FormStatus.Denied;
+            _db.SaveChanges();
+            return RedirectToAction("ViewFormsSuperUser", "SuperUser");
+        }
+
     }
 }
