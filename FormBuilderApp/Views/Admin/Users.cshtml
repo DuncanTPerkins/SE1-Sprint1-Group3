@@ -8,10 +8,6 @@
 
 <h2>Users</h2>
 
-<div>
-    <a href="/Admin/CreateUser">Create New</a>
-</div>
-
 @using (Html.BeginForm("Users", "Admin", FormMethod.Get))
 {
     <p style="float: right">
@@ -23,7 +19,9 @@
 @if (ViewContext.HttpContext.User.IsInRole("Super Admin"))
 {
     <p>
-        @Html.ActionLink("Add User", "Create")
+        <div>
+            <a href="/Admin/CreateUser">Create New User</a>
+        </div>
     </p>
 }
 <table class="table">
@@ -58,9 +56,9 @@
         <th>
             @Html.DisplayNameFor(model => model.AccessFailedCount)
         </th>*@
-        <th>
+        @*<th>
             @Html.ActionLink("Username", "Users", new { sortOrder = ViewBag.UsernameSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
+        </th>*@
         </th>
         <th>Options</th>
         @*<th>
@@ -100,9 +98,6 @@
         <td>
             @Html.DisplayFor(modelItem => item.AccessFailedCount)
         </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
             @*<a href="/user/viewroles">@item.Roles.Count()</a>*@
             @*@item.Roles.Count()*@
         <td>
