@@ -3,6 +3,8 @@
     fields: []
 }
 
+var positions = [];
+
 //Search through the DOM for any elements that match the
 //provided selector and create a new jQuery object that 
 //references each element
@@ -14,6 +16,7 @@ var $nameInput = $('#nameInput');
 var $requiredInput = $('#requiredInput');
 var $placeholderInput = $('#placeholderInput');
 var $positionsInput = $('#position');
+var $addAdditionalPositionBtn = $('#addAdditionalPosition');
 
 
 // Template Functions
@@ -137,20 +140,34 @@ function renderField(fieldData) {
     }
 }
 
+function addPosition(e) {
+    positons.push(positonsInput.val());
+    positionsInput.val('');
+}
 
 function submit(e) {
+    e.preventDefault();
     var url = '/admin/createform'
     var postData = $('#preview').html().toString();
     var json = JSON.stringify($("#myForm").serializeArray());
     var token = $('[name=__RequestVerificationToken]').val();
-    var values = [$('#formnameInput').val(), $('FormID').val(), postData, json, $positionsInput.val()];
-    $.post(url, { __RequestVerificationToken: token, jsonData: values }, function (data) {
-        if (data.error) {
+    var values = [$('#formnameInput').val(), $('FormID').val(), postData, json, positions.join(',')];
+    var data = {
+        name: $('#formnameInput').val(),
+        id: $('#FormID').val(),
+        formHTML: postData,
+        formValues: json
+    }
+
+    $.post(url, { __RequestVerificationToken: token, jsonData: values }, function (response) {
+        if (response.error) {
             alert('Error saving form. Try again later.');
         } else {
             alert('Form saved successfully!');
         }
-    })
+    });
 }
 
+
+$addAdditionalPositionBtn.on('click', addPosition);
 $createBtn.on('click', submit);
