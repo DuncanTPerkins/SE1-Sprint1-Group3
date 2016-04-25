@@ -1,8 +1,25 @@
 ﻿body {
     font-family: Arial, Arial, Helvetica, sans-serif;
     line-height: 18px;
-    padding: 80px;
+    background-color: #292929;
 }
+
+.wrapper {
+    background-color: #fff;
+    width: 98%;
+    margin: 25px auto;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+}
+
+th {
+    border: 0px;
+}
+
+td {
+    border: 0px;
+}
+
+
 
 .navbar-inverse
 {
@@ -15,6 +32,8 @@
     vertical-align: top;
     color: #fff;
     border-bottom-style: solid;
+    width: 98%;
+    margin: auto;
     border-width: 2px;
     border-bottom-color: #f6d652;
 }
