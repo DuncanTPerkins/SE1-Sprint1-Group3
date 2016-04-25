@@ -91,10 +91,11 @@ namespace FormBuilderApp.Controllers
         }
 
         [Authorize(Roles = "Super User")]
-        public ActionResult DenyForm(int id)
+        public ActionResult DenyForm(int id, string deny)
         {
             Form form = _db.form.Find(id);
             form.Status = Form.FormStatus.Denied;
+            //form.DenyReason = deny;
             _db.SaveChanges();
             return RedirectToAction("ViewFormsSuperUser", "SuperUser");
         }
