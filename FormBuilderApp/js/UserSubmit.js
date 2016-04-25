@@ -2,6 +2,8 @@
 var $submitBtn = $('#completed');
 var $draftBtn = $('#later');
 var $formID = $('#FormID');
+
+
 $fieldForm.on('submit', function (event) {
     event.preventDefault();
 });
@@ -42,6 +44,7 @@ var save = function (isDraft) {
             }
         })
 }
+
 
 //function submit(e) {
 //    var url = '/user/fillout'

@@ -109,16 +109,49 @@ namespace FormBuilderApp.Controllers
         [ValidateInput(false)]
         public ActionResult CreateForm(String[] jsonData)
         {
-            _db.form.Add(new Models.Form
+            string[] list = jsonData[4].Split(',');
+            int[] positionIds = new int[list.Length];
+
+            for (int i = 0; i < list.Length; i++)
+            {
+                positionIds[i] = Convert.ToInt32(list[i]); 
+            }
+            
+            Form form = new Models.Form
             {
                 Name = jsonData[0],
                 Status = Models.Form.FormStatus.Template,
-                FormData = jsonData[2],
-                WorkflowId = Convert.ToInt32(jsonData[4])
+                FormData = jsonData[2]
 
 
-            });
+            };
+            _db.form.Add(form);
             _db.SaveChanges();
+
+            
+            Workflow workFlow = new Models.Workflow
+            {
+                FormId = form.Id
+
+            };
+
+            List<Positions> positions = new List<Positions>();
+
+            for(int i = 0; i < positionIds.Length; i++)
+            {
+                positions.Add(_db.position.Find(positionIds[i]));
+            }
+
+            workFlow.Positions = positions;
+
+            _db.flow.Add(workFlow);
+            _db.SaveChanges();
+
+
+            form.WorkflowId = workFlow.FlowId;
+
+            _db.SaveChanges();
+
             return View();
         }
 
