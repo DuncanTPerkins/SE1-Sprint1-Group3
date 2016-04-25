@@ -110,7 +110,7 @@ namespace FormBuilderApp.Controllers
         public ActionResult CreateForm(String[] jsonData)
         {
             string[] list = jsonData[4].Split(',');
-            int[] positionIds = new int[] { };
+            int[] positionIds = new int[list.Length];
 
             for (int i = 0; i < list.Length; i++)
             {
@@ -133,10 +133,16 @@ namespace FormBuilderApp.Controllers
 
             };
 
+            List<Positions> positions = new List<Positions>();
+
             for(int i = 0; i < positionIds.Length; i++)
             {
-                workFlow.Positions.Add(_db.position.Find(positionIds[i]));
+                positions.Add(_db.position.Find(positionIds[i]));
             }
+
+
+
+            workFlow.Positions = positions;
 
             form.WorkflowId = workFlow.FlowId;
 

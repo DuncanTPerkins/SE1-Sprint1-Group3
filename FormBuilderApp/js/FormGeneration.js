@@ -141,8 +141,9 @@ function renderField(fieldData) {
 }
 
 function addPosition(e) {
-    positons.push(positonsInput.val());
-    positionsInput.val('');
+    console.log($positionsInput.val())
+    positions.push($positionsInput.val());
+    $positionsInput.val('');
 }
 
 function submit(e) {
