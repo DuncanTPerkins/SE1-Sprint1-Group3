@@ -1,0 +1,42 @@
+﻿body {
+    font-family: Arial, Arial, Helvetica, sans-serif;
+    line-height: 18px;
+    padding: 80px;
+}
+
+.navbar-inverse
+{
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 30px 0px #999;
+    font-family: "Rotis Serif Regular", Georgia, serif;
+    background-image: linear-gradient(rgb(0, 56, 118) 0%, rgb(0, 33, 71) 60%);
+    padding: 10px 0;
+    vertical-align: top;
+    color: #fff;
+    border-bottom-style: solid;
+    border-width: 2px;
+    border-bottom-color: #f6d652;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    color: #f6d652;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.navbar-nav > li > a
+{
+    height: 50px;
+    margin: 0px;
+    color: #fff;
+}
+.navbar-inverse .navbar-nav > li > a 
+{
+    color: #fff;
+}
+
+.navbar-inverse .navbar-brand 
+{
+    color: #fff;
+}
