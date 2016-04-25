@@ -37,7 +37,7 @@
 <p>
     @if (ViewContext.HttpContext.User.IsInRole("Super Admin"))
             {
-        @Html.ActionLink("Edit Role", "AssignRole", new { id = Model.Id }) 
+        @Html.ActionLink("Edit Role", "AssignRole", new { id = Model.Id }) <text> | </text>
     }
     @Html.ActionLink("Back to List", "Users")
 </p>

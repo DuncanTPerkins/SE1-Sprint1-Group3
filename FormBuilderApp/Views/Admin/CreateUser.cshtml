@@ -10,13 +10,9 @@
     var roleNames = ViewBag.RoleNames;
 }
 
-<<<<<<< HEAD
-@using (Html.BeginForm("Users", "Admin", FormMethod.Get))
-{
-=======
+
 <form method="post" action="/admin/users">
     
->>>>>>> 6e4cf63bc6902d089ab7ab6ece49decfe2b25790
     @Html.AntiForgeryToken()
     <h4>Create a new user.</h4>
     <hr />
@@ -56,9 +52,10 @@
             <input type="submit" class="btn btn-default" value="Create User" />
         </div>
     </div>
-}
+</form>
 
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
     }
 
+@Html.ActionLink("Back to List", "Users")

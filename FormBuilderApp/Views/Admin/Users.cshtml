@@ -19,54 +19,13 @@
 @if (ViewContext.HttpContext.User.IsInRole("Super Admin"))
 {
     <p>
-<<<<<<< HEAD
         @Html.ActionLink("Add User", "CreateUser")
-=======
-        <div>
-            <a href="/Admin/CreateUser">Create New User</a>
-        </div>
->>>>>>> 6e4cf63bc6902d089ab7ab6ece49decfe2b25790
     </p>
 }
 <table class="table">
     <tr>
         <th>
             @Html.ActionLink("Email", "Users", new { sortOrder = ViewBag.EmailSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-<<<<<<< HEAD
-        <th>
-=======
-        @*<th>
-            @Html.DisplayNameFor(model => model.EmailConfirmed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PasswordHash)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SecurityStamp)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TwoFactorEnabled)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LockoutEnabled)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AccessFailedCount)
-        </th>*@
-        @*<th>
->>>>>>> 6e4cf63bc6902d089ab7ab6ece49decfe2b25790
-            @Html.ActionLink("Username", "Users", new { sortOrder = ViewBag.UsernameSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>*@
         </th>
         <th>Options</th>
     </tr>
@@ -76,41 +35,6 @@
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
-<<<<<<< HEAD
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-=======
-        @*<td>
-            @Html.DisplayFor(modelItem => item.EmailConfirmed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PasswordHash)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SecurityStamp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumberConfirmed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TwoFactorEnabled)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LockoutEndDateUtc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LockoutEnabled)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AccessFailedCount)
-        </td>*@
-            @*<a href="/user/viewroles">@item.Roles.Count()</a>*@
-            @*@item.Roles.Count()*@
->>>>>>> 6e4cf63bc6902d089ab7ab6ece49decfe2b25790
         <td>
             @if (ViewContext.HttpContext.User.IsInRole("Super Admin"))
             {
